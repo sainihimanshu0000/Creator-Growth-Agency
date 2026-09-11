@@ -1,0 +1,188 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-canvas: var(--brand-canvas);
+  --color-canvas-elevated: var(--brand-canvas-elevated);
+  --color-ink: var(--brand-ink);
+  --color-ink-muted: var(--brand-ink-muted);
+  --color-ink-subtle: var(--brand-ink-subtle);
+  --color-line: var(--brand-line);
+  --color-accent: var(--brand-accent);
+  --color-accent-dim: var(--brand-accent-dim);
+  --color-accent-ink: var(--brand-accent-ink);
+  --font-display: var(--font-syne), ui-sans-serif, sans-serif;
+  --font-body: var(--font-dm-sans), ui-sans-serif, sans-serif;
+}
+
+:root {
+  /* Electric lime accent on deep charcoal canvas */
+  --brand-canvas: #0c0e0c;
+  --brand-canvas-elevated: #141714;
+  --brand-ink: #f2f4ef;
+  --brand-ink-muted: #a8b0a0;
+  --brand-ink-subtle: #6d7668;
+  --brand-line: rgba(242, 244, 239, 0.1);
+  --brand-accent: #c8f542;
+  --brand-accent-dim: rgba(200, 245, 66, 0.14);
+  --brand-accent-ink: #0c0e0c;
+
+  /* Keep legacy aliases used in raw CSS */
+  --canvas: var(--brand-canvas);
+  --canvas-elevated: var(--brand-canvas-elevated);
+  --ink: var(--brand-ink);
+  --ink-muted: var(--brand-ink-muted);
+  --ink-subtle: var(--brand-ink-subtle);
+  --line: var(--brand-line);
+  --accent: var(--brand-accent);
+  --accent-dim: var(--brand-accent-dim);
+  --accent-ink: var(--brand-accent-ink);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .motion-fade-up,
+  .motion-delay-1,
+  .motion-delay-2 {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .animate-marquee {
+    animation: none !important;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.focus\:not-sr-only:focus {
+  position: fixed;
+  width: auto;
+  height: auto;
+  padding: 0.5rem 1rem;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+body {
+  font-family: var(--font-body), ui-sans-serif, sans-serif;
+  background-color: var(--canvas);
+  color: var(--ink);
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display), ui-sans-serif, sans-serif;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Primary CTA — hardcoded so link `color: inherit` cannot wash out label */
+.btn-primary,
+a.btn-primary,
+button.btn-primary {
+  background-color: #c8f542 !important;
+  color: #0c0e0c !important;
+}
+
+.btn-primary:hover,
+a.btn-primary:hover,
+button.btn-primary:hover {
+  background-color: #d4f86a !important;
+  color: #0c0e0c !important;
+}
+
+/* Atmosphere: textured dark canvas + mesh */
+.atmosphere {
+  background-color: var(--canvas);
+  background-image:
+    radial-gradient(ellipse 80% 50% at 20% 10%, rgba(200, 245, 66, 0.08), transparent 55%),
+    radial-gradient(ellipse 60% 40% at 85% 20%, rgba(90, 140, 110, 0.12), transparent 50%),
+    radial-gradient(ellipse 50% 60% at 50% 100%, rgba(200, 245, 66, 0.05), transparent 45%),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+}
+
+.hero-visual {
+  background-image:
+    linear-gradient(105deg, rgba(12, 14, 12, 0.92) 0%, rgba(12, 14, 12, 0.72) 42%, rgba(12, 14, 12, 0.45) 100%),
+    radial-gradient(ellipse 70% 80% at 75% 45%, rgba(200, 245, 66, 0.15), transparent 55%),
+    radial-gradient(ellipse 40% 50% at 90% 80%, rgba(60, 100, 80, 0.35), transparent 50%),
+    linear-gradient(160deg, #1a2218 0%, #0c0e0c 40%, #121a14 100%);
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 40s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.motion-fade-up {
+  animation: fade-up 0.7s ease-out both;
+}
+
+.motion-delay-1 {
+  animation-delay: 0.12s;
+}
+
+.motion-delay-2 {
+  animation-delay: 0.24s;
+}
