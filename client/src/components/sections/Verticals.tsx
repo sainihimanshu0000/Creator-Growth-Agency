@@ -1,6 +1,9 @@
+"use client";
+
 import { siteConfig } from "@/config/siteConfig";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { Reveal } from "@/components/motion/Reveal";
 
 const verticalCopy: Record<string, string> = {
   Gaming: "Launch, live-ops, and community-led acquisition for titles and platforms.",
@@ -22,15 +25,17 @@ export function Verticals() {
 
         <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
           {siteConfig.verticals.map((vertical, i) => (
-            <div key={vertical} className="border-t border-line pt-5">
-              <p className="text-xs font-medium text-accent">
-                {String(i + 1).padStart(2, "0")}
-              </p>
-              <h3 className="mt-3 text-lg text-ink">{vertical}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-ink-muted">
-                {verticalCopy[vertical] ?? "Category-led creator growth with commercial clarity."}
-              </p>
-            </div>
+            <Reveal key={vertical} variant="up" delay={i * 80}>
+              <div className="border-t border-line pt-5">
+                <p className="text-xs font-medium text-accent">
+                  {String(i + 1).padStart(2, "0")}
+                </p>
+                <h3 className="mt-3 text-lg text-ink">{vertical}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-ink-muted">
+                  {verticalCopy[vertical] ?? "Category-led creator growth with commercial clarity."}
+                </p>
+              </div>
+            </Reveal>
           ))}
         </div>
       </Container>

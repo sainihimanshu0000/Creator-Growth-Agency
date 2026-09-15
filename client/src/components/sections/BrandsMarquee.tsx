@@ -1,5 +1,8 @@
+"use client";
+
 import { siteConfig } from "@/config/siteConfig";
 import { Container } from "@/components/ui/Container";
+import { Reveal } from "@/components/motion/Reveal";
 
 export function BrandsMarquee() {
   const logos = [...siteConfig.brands, ...siteConfig.brands];
@@ -7,9 +10,11 @@ export function BrandsMarquee() {
   return (
     <section id="brands" className="border-y border-line py-14 lg:py-16" aria-label="Brands we work with">
       <Container>
-        <p className="text-center text-xs font-medium uppercase tracking-[0.2em] text-ink-subtle">
-          Brands We Work With
-        </p>
+        <Reveal variant="fade">
+          <p className="text-center text-xs font-medium uppercase tracking-[0.2em] text-ink-subtle">
+            Brands We Work With
+          </p>
+        </Reveal>
       </Container>
 
       <div className="relative mt-8 overflow-hidden">

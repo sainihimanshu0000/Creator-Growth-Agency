@@ -4,15 +4,19 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { siteConfig } from "@/config/siteConfig";
 import { Button } from "@/components/ui/Button";
-import { Container } from "@/components/ui/Container";
+import { BrandLogo } from "@/components/ui/BrandLogo";
+import { gsap, registerGsap, usePrefersReducedMotion } from "@/lib/motion";
 
 export function Header() {
-  const [solid, setSolid] = useState(false);
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const headerRef = useRef<HTMLElement>(null);
+  const reduced = usePrefersReducedMotion();
 
   useEffect(() => {
-    const onScroll = () => setSolid(window.scrollY > 24);
+    registerGsap();
+    const onScroll = () => setScrolled(window.scrollY > 40);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -37,29 +41,40 @@ export function Header() {
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
+  useEffect(() => {
+    if (reduced || !headerRef.current) return;
+    gsap.fromTo(
+      headerRef.current,
+      { y: -24, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.9, delay: 0.2, ease: "power3.out" }
+    );
+  }, [reduced]);
+
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
-        solid || open
-          ? "border-b border-line bg-canvas/95 backdrop-blur-md"
+      ref={headerRef}
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
+        scrolled || open
+          ? "border-b border-white/10 bg-canvas/55 shadow-[0_8px_40px_rgba(0,0,0,0.25)] backdrop-blur-xl"
           : "bg-transparent"
       }`}
     >
-      <Container className="flex h-16 items-center justify-between lg:h-[4.25rem]">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-8 lg:h-[4.25rem] lg:px-10">
         <Link
           href="/#home"
-          className="font-display text-lg font-bold tracking-tight text-ink"
+          className="inline-flex items-center"
           onClick={() => setOpen(false)}
+          aria-label={siteConfig.company.name}
         >
-          {siteConfig.company.name}
+          <BrandLogo variant="wordmark" priority className="h-7 sm:h-8" />
         </Link>
 
-        <nav className="hidden items-center gap-5 xl:gap-6 lg:flex" aria-label="Primary">
-          {siteConfig.nav.map((item) => (
+        <nav className="hidden items-center gap-6 lg:flex" aria-label="Primary">
+          {siteConfig.nav.slice(0, 6).map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="text-sm text-ink-muted transition-colors hover:text-ink"
+              className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-muted transition-colors hover:text-ink"
             >
               {item.label}
             </Link>
@@ -81,7 +96,6 @@ export function Header() {
           aria-label={open ? "Close menu" : "Open menu"}
           onClick={() => setOpen((v) => !v)}
         >
-          <span className="sr-only">Menu</span>
           <span className="flex flex-col gap-1.5">
             <span
               className={`block h-px w-5 bg-current transition ${open ? "translate-y-[3.5px] rotate-45" : ""}`}
@@ -92,16 +106,16 @@ export function Header() {
             />
           </span>
         </button>
-      </Container>
+      </div>
 
       {open ? (
-        <div id="mobile-nav" className="border-t border-line bg-canvas lg:hidden">
-          <Container className="flex flex-col gap-1 py-4">
+        <div id="mobile-nav" className="border-t border-line bg-canvas/95 backdrop-blur-xl lg:hidden">
+          <div className="flex flex-col gap-1 px-5 py-4 sm:px-8">
             {siteConfig.nav.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="py-3 text-base text-ink-muted hover:text-ink"
+                className="py-3 font-mono text-sm uppercase tracking-[0.14em] text-ink-muted hover:text-ink"
                 onClick={() => setOpen(false)}
               >
                 {item.label}
@@ -112,7 +126,7 @@ export function Header() {
                 {siteConfig.ctas.primary}
               </Button>
             </div>
-          </Container>
+          </div>
         </div>
       ) : null}
     </header>

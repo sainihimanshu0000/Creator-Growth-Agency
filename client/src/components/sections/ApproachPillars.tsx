@@ -1,6 +1,9 @@
+"use client";
+
 import { siteConfig } from "@/config/siteConfig";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { Reveal } from "@/components/motion/Reveal";
 
 const icons = [
   <svg key="s" viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
@@ -27,11 +30,13 @@ export function ApproachPillars() {
 
         <div className="mt-14 grid gap-10 md:grid-cols-3 md:gap-12">
           {siteConfig.pillars.map((pillar, i) => (
-            <div key={pillar.title} className="border-t border-line pt-6">
-              <div className="text-accent">{icons[i]}</div>
-              <h3 className="mt-5 text-xl text-ink">{pillar.title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-ink-muted">{pillar.description}</p>
-            </div>
+            <Reveal key={pillar.title} variant="up" delay={i * 100}>
+              <div className="border-t border-line pt-6">
+                <div className="text-accent">{icons[i]}</div>
+                <h3 className="mt-5 text-xl text-ink">{pillar.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-ink-muted">{pillar.description}</p>
+              </div>
+            </Reveal>
           ))}
         </div>
       </Container>

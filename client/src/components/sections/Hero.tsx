@@ -1,20 +1,49 @@
+"use client";
+
+import { useEffect, useRef } from "react";
 import { siteConfig } from "@/config/siteConfig";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 
 export function Hero() {
+  const visualRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion) return;
+
+    const visual = visualRef.current;
+    if (!visual) return;
+
+    let frame = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const y = window.scrollY;
+        if (y > window.innerHeight) return;
+        visual.style.transform = `translate3d(0, ${y * 0.22}px, 0)`;
+      });
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
+
   return (
     <section
       id="home"
       className="relative flex min-h-[100svh] items-end overflow-hidden hero-visual"
     >
-      {/* Full-bleed abstract network plane — CSS only, no overlays/chips on media */}
       <div
-        className="pointer-events-none absolute inset-0 opacity-40"
+        ref={visualRef}
+        className="pointer-events-none absolute inset-0 opacity-40 will-change-transform"
         aria-hidden
       >
         <svg
-          className="h-full w-full"
+          className="hero-network h-full w-full"
           viewBox="0 0 1200 800"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -43,20 +72,24 @@ export function Hero() {
           {siteConfig.company.eyebrow}
         </p>
 
-        <h1 className="motion-fade-up motion-delay-1 mt-5 max-w-4xl font-display text-5xl leading-[0.95] tracking-tight text-ink sm:text-6xl md:text-7xl lg:text-8xl">
-          <span className="block text-accent">{siteConfig.company.name}</span>
-          <span className="mt-2 block">{siteConfig.hero.headline}</span>
+        <h1 className="mt-5 max-w-4xl font-display text-5xl leading-[0.95] tracking-tight text-ink sm:text-6xl md:text-7xl lg:text-8xl">
+          <span className="motion-fade-up motion-delay-1 block overflow-hidden">
+            <span className="block text-accent">{siteConfig.company.name}</span>
+          </span>
+          <span className="motion-fade-up motion-delay-2 mt-2 block overflow-hidden">
+            <span className="block">{siteConfig.hero.headline}</span>
+          </span>
         </h1>
 
-        <p className="motion-fade-up motion-delay-2 mt-6 max-w-xl text-base leading-relaxed text-ink-muted sm:text-lg">
+        <p className="motion-fade-up motion-delay-3 mt-6 max-w-xl text-base leading-relaxed text-ink-muted sm:text-lg">
           {siteConfig.hero.subcopy}
         </p>
 
-        <p className="motion-fade-up motion-delay-2 mt-8 text-sm tracking-wide text-ink-subtle">
+        <p className="motion-fade-up motion-delay-3 mt-8 text-sm tracking-wide text-ink-subtle">
           {siteConfig.verticals.join(" · ")}
         </p>
 
-        <div className="motion-fade-up motion-delay-2 mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
+        <div className="motion-fade-up motion-delay-4 mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
           <Button href="/#contact">{siteConfig.ctas.primary}</Button>
           <Button href="/#brands" variant="secondary">
             {siteConfig.ctas.secondaryBrand}

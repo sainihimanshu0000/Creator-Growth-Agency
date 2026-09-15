@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { siteConfig } from "@/config/siteConfig";
 import { Container } from "@/components/ui/Container";
+import { BrandLogo } from "@/components/ui/BrandLogo";
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -11,9 +12,7 @@ export function Footer() {
       <Container className="py-14 lg:py-16">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-6">
           <div className="lg:col-span-2">
-            <p className="font-display text-2xl font-bold tracking-tight text-ink">
-              {siteConfig.company.name}
-            </p>
+            <BrandLogo variant="wordmark" className="h-8" />
             <p className="mt-3 max-w-xs text-sm leading-relaxed text-ink-muted">
               {siteConfig.company.description}
             </p>

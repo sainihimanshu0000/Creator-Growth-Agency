@@ -1,19 +1,46 @@
 export const siteConfig = {
   company: {
-    name: "VANTAGE",
-    legalName: "Vantage Growth Partners Pvt. Ltd.",
+    name: "Collabind",
+    legalName: "Collabind Growth Partners Pvt. Ltd.",
     tagline: "Human-Insight Growth",
     eyebrow: "Creator & Brand Growth Agency",
     description:
       "Strategy, managed execution, and transparent reporting for brands and creators across Gaming, Esports, Crypto, Sports, and Fintech.",
     region: "India · Global",
-    url: "https://vantage.agency",
+    url: "https://collabind.com",
+  },
+
+  brand: {
+    logoMark: "/brand/logo-mark-on-dark.png",
+    logoWordmark: "/brand/logo-wordmark-on-dark.png",
+  },
+
+  /** Cinematic frame imagery (Unsplash) — used in place of abstract FRAME panels */
+  frameImages: {
+    story: [
+      "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1600&q=80",
+      "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1600&q=80",
+      "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1600&q=80",
+    ],
+    brands: [
+      "https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=1600&q=80",
+      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1600&q=80",
+      "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1600&q=80",
+      "https://images.unsplash.com/photo-1611162617474-5b21e11e55d8?auto=format&fit=crop&w=1600&q=80",
+    ],
+    sectors: [
+      "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1511882150382-421056c89033?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1621761191319-c6fb62004040?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1461896836934-ffe607ba6851?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1400&q=80",
+    ],
   },
 
   contact: {
-    brandEmail: "brands@vantage.agency",
-    creatorEmail: "creators@vantage.agency",
-    generalEmail: "hello@vantage.agency",
+    brandEmail: "brands@collabind.com",
+    creatorEmail: "creators@collabind.com",
+    generalEmail: "hello@collabind.com",
     responseSla: "We respond within 1 business day.",
     formEndpoint: "/api/contact", // or Formspree URL; empty falls back to /api/contact
   },
@@ -26,11 +53,11 @@ export const siteConfig = {
 
   nav: [
     { label: "Home", href: "/#home" },
-    { label: "Brands", href: "/#brands" },
-    { label: "Approach", href: "/#approach" },
-    { label: "Creators", href: "/#creators" },
-    { label: "Team", href: "/#team" },
+    { label: "System", href: "/#story" },
+    { label: "Features", href: "/#features" },
     { label: "Verticals", href: "/#verticals" },
+    { label: "Brands", href: "/#brands" },
+    { label: "Team", href: "/#team" },
     { label: "Case Studies", href: "/case-studies" },
     { label: "Contact", href: "/#contact" },
   ],

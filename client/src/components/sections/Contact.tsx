@@ -4,7 +4,9 @@ import { FormEvent, cloneElement, useMemo, useState, type ReactElement } from "r
 import { siteConfig } from "@/config/siteConfig";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import { AnimatedText } from "@/components/cinematic/AnimatedText";
+import { ScrollReveal } from "@/components/cinematic/ScrollReveal";
+import { TechnicalGrid } from "@/components/cinematic/TechnicalGrid";
 
 type Mode = "brand" | "creator";
 type Status = "idle" | "submitting" | "success" | "error";
@@ -139,15 +141,22 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="py-20 lg:py-28">
-      <Container>
-        <SectionHeading
-          eyebrow="Contact"
-          title={siteConfig.contactSection.headline}
-          description={siteConfig.contactSection.subcopy}
+    <section id="contact" className="relative overflow-hidden py-24 lg:py-32">
+      <TechnicalGrid variant="sparse" className="opacity-30" />
+      <Container className="relative z-10">
+        <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.24em] text-accent">
+          Contact
+        </p>
+        <AnimatedText
+          as="h2"
+          text={siteConfig.contactSection.headline}
+          mode="words"
+          className="max-w-2xl font-display text-3xl tracking-tight text-ink sm:text-4xl lg:text-5xl"
         />
+        <p className="mt-4 max-w-xl text-base text-ink-muted">{siteConfig.contactSection.subcopy}</p>
 
         <div className="mt-12 grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:gap-14">
+          <ScrollReveal y={40}>
           <form
             onSubmit={onSubmit}
             noValidate
@@ -407,7 +416,9 @@ export function Contact() {
               ) : null}
             </div>
           </form>
+          </ScrollReveal>
 
+          <ScrollReveal y={40} delay={0.1}>
           <aside className="space-y-8 lg:pt-2">
             <div>
               <p className="text-xs font-medium uppercase tracking-[0.18em] text-ink-subtle">
@@ -464,6 +475,7 @@ export function Contact() {
               </ol>
             </div>
           </aside>
+          </ScrollReveal>
         </div>
       </Container>
     </section>

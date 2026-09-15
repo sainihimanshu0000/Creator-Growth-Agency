@@ -15,18 +15,16 @@
 }
 
 :root {
-  /* Electric lime accent on deep charcoal canvas */
-  --brand-canvas: #0c0e0c;
-  --brand-canvas-elevated: #141714;
+  --brand-canvas: #070807;
+  --brand-canvas-elevated: #101310;
   --brand-ink: #f2f4ef;
   --brand-ink-muted: #a8b0a0;
   --brand-ink-subtle: #6d7668;
   --brand-line: rgba(242, 244, 239, 0.1);
   --brand-accent: #c8f542;
   --brand-accent-dim: rgba(200, 245, 66, 0.14);
-  --brand-accent-ink: #0c0e0c;
+  --brand-accent-ink: #070807;
 
-  /* Keep legacy aliases used in raw CSS */
   --canvas: var(--brand-canvas);
   --canvas-elevated: var(--brand-canvas-elevated);
   --ink: var(--brand-ink);
@@ -43,8 +41,11 @@
 }
 
 html {
-  scroll-behavior: smooth;
   scroll-padding-top: 5.5rem;
+}
+
+html:not(.lenis) {
+  scroll-behavior: smooth;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -52,16 +53,10 @@ html {
     scroll-behavior: auto;
   }
 
-  .motion-fade-up,
-  .motion-delay-1,
-  .motion-delay-2 {
+  .animate-marquee,
+  .animated-text__unit {
     animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
-  }
-
-  .animate-marquee {
-    animation: none !important;
+    transition: none !important;
   }
 }
 
@@ -114,37 +109,47 @@ a {
   text-decoration: none;
 }
 
-/* Primary CTA — hardcoded so link `color: inherit` cannot wash out label */
+.font-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
 .btn-primary,
 a.btn-primary,
 button.btn-primary {
   background-color: #c8f542 !important;
-  color: #0c0e0c !important;
+  color: #070807 !important;
 }
 
 .btn-primary:hover,
 a.btn-primary:hover,
 button.btn-primary:hover {
   background-color: #d4f86a !important;
-  color: #0c0e0c !important;
+  color: #070807 !important;
 }
 
-/* Atmosphere: textured dark canvas + mesh */
+/* Animated text masks */
+.animated-text {
+  display: block;
+}
+
+.animated-text__mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+
+.animated-text__unit {
+  display: inline-block;
+  will-change: transform, opacity, filter;
+}
+
+/* Atmosphere */
 .atmosphere {
   background-color: var(--canvas);
   background-image:
     radial-gradient(ellipse 80% 50% at 20% 10%, rgba(200, 245, 66, 0.08), transparent 55%),
     radial-gradient(ellipse 60% 40% at 85% 20%, rgba(90, 140, 110, 0.12), transparent 50%),
-    radial-gradient(ellipse 50% 60% at 50% 100%, rgba(200, 245, 66, 0.05), transparent 45%),
-    url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-}
-
-.hero-visual {
-  background-image:
-    linear-gradient(105deg, rgba(12, 14, 12, 0.92) 0%, rgba(12, 14, 12, 0.72) 42%, rgba(12, 14, 12, 0.45) 100%),
-    radial-gradient(ellipse 70% 80% at 75% 45%, rgba(200, 245, 66, 0.15), transparent 55%),
-    radial-gradient(ellipse 40% 50% at 90% 80%, rgba(60, 100, 80, 0.35), transparent 50%),
-    linear-gradient(160deg, #1a2218 0%, #0c0e0c 40%, #121a14 100%);
+    radial-gradient(ellipse 50% 60% at 50% 100%, rgba(200, 245, 66, 0.05), transparent 45%);
 }
 
 @keyframes marquee {
@@ -164,25 +169,44 @@ button.btn-primary:hover {
   animation-play-state: paused;
 }
 
-@keyframes fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+html.lenis {
+  overflow-x: hidden;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Keep scroll-linked transforms on the GPU */
+[data-media],
+[data-scale-card],
+[data-parallax] {
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+/* Mobile: simplify pinned feel via shorter panels handled in JS;
+   ensure overflow doesn't break horizontal track */
+@media (max-width: 768px) {
+  .animated-text__unit {
+    filter: none !important;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.motion-fade-up {
-  animation: fade-up 0.7s ease-out both;
-}
-
-.motion-delay-1 {
-  animation-delay: 0.12s;
-}
-
-.motion-delay-2 {
-  animation-delay: 0.24s;
 }

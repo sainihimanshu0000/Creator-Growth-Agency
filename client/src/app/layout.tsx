@@ -33,7 +33,10 @@ export const metadata: Metadata = {
     "fintech",
   ],
   icons: {
-    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon.png", type: "image/png" },
+    ],
   },
   openGraph: {
     type: "website",

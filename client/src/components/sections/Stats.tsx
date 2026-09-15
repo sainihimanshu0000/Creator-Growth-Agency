@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { siteConfig } from "@/config/siteConfig";
 import { Container } from "@/components/ui/Container";
 
@@ -93,8 +93,19 @@ export function Stats() {
       aria-label="Key metrics"
     >
       <Container className="grid grid-cols-2 gap-8 py-10 sm:gap-10 lg:grid-cols-4 lg:py-12">
-        {siteConfig.stats.map((stat) => (
-          <StatItem key={stat.label} {...stat} active={active} />
+        {siteConfig.stats.map((stat, i) => (
+          <div
+            key={stat.label}
+            className={`reveal reveal-up ${active ? "is-visible" : ""}`}
+            style={
+              {
+                "--reveal-delay": `${i * 90}ms`,
+                "--reveal-duration": "900ms",
+              } as CSSProperties
+            }
+          >
+            <StatItem {...stat} active={active} />
+          </div>
         ))}
       </Container>
     </section>
