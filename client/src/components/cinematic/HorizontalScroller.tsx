@@ -70,8 +70,8 @@ export function HorizontalScroller({
   return (
     <section ref={sectionRef} id={id} className="relative overflow-hidden bg-canvas-elevated">
       <TechnicalGrid variant="sparse" className="opacity-40" />
-      <div className="relative flex min-h-[100svh] flex-col justify-center py-16 md:h-[100svh] md:py-0">
-        <div className="mx-auto mb-10 w-full max-w-7xl px-5 sm:px-8 lg:px-10">
+      <div className="relative flex flex-col justify-center py-16 md:h-[100svh] md:min-h-[100svh] md:py-0">
+        <div className="mx-auto mb-8 w-full max-w-7xl px-5 sm:mb-10 sm:px-8 lg:px-10">
           <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.24em] text-accent">
             {eyebrow}
           </p>
@@ -85,12 +85,13 @@ export function HorizontalScroller({
 
         <div
           ref={trackRef}
-          className="flex w-max gap-5 overflow-x-auto px-5 will-change-transform sm:gap-6 sm:px-8 md:overflow-visible lg:px-10"
+          data-lenis-prevent
+          className="flex w-max snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-5 px-5 pb-2 [-ms-overflow-style:none] [scrollbar-width:none] will-change-transform sm:gap-6 sm:scroll-px-8 sm:px-8 md:overflow-visible md:pb-0 md:snap-none lg:px-10 [&::-webkit-scrollbar]:hidden"
         >
           {panels.map((panel) => (
             <article
               key={panel.index}
-              className="relative flex h-[48vh] w-[78vw] max-w-[520px] shrink-0 flex-col justify-between overflow-hidden border border-line p-6 sm:h-[56vh] sm:w-[48vw] sm:p-8 lg:w-[34vw]"
+              className="relative flex h-[42vh] w-[78vw] max-w-[520px] shrink-0 snap-center flex-col justify-between overflow-hidden border border-line p-5 sm:h-[56vh] sm:w-[48vw] sm:p-8 lg:w-[34vw]"
               style={{
                 backgroundImage: panel.image
                   ? `linear-gradient(180deg, rgba(7,8,7,0.35) 0%, rgba(7,8,7,0.88) 100%), url(${panel.image})`

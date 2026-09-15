@@ -27,7 +27,7 @@ export function CTASection({
   secondaryHref,
 }: CTASectionProps) {
   return (
-    <section id={id} className="relative overflow-hidden border-y border-line py-28 lg:py-36">
+    <section id={id} className="relative overflow-hidden border-y border-line py-20 sm:py-28 lg:py-36">
       <TechnicalGrid variant="scan" className="opacity-50" />
       <div
         className="pointer-events-none absolute inset-0"
@@ -44,7 +44,7 @@ export function CTASection({
           as="h2"
           text={headline}
           mode="words"
-          className="font-display text-4xl leading-[0.95] tracking-tight text-ink sm:text-5xl lg:text-6xl"
+          className="font-display text-3xl leading-[0.95] tracking-tight text-ink sm:text-5xl lg:text-6xl"
         />
         {description ? (
           <ScrollReveal>

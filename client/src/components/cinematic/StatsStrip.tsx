@@ -53,17 +53,19 @@ function StatCell({
     : Math.round(current).toLocaleString();
 
   return (
-    <div className="relative border border-line bg-canvas/40 p-5 sm:p-6">
+    <div className="relative min-w-0 border border-line bg-canvas/40 p-4 sm:p-6">
       <TechnicalGrid variant="sparse" showCoords={false} animate={false} className="opacity-20" />
       <p className="relative font-mono text-[10px] uppercase tracking-[0.2em] text-ink-subtle">
         CH //{String(index + 1).padStart(2, "0")}
       </p>
-      <p className="relative mt-4 font-display text-4xl tracking-tight text-ink sm:text-5xl">
+      <p className="relative mt-3 font-display text-3xl tracking-tight text-ink sm:mt-4 sm:text-5xl">
         {prefix}
         {display}
         <span className="text-accent">{suffix}</span>
       </p>
-      <p className="relative mt-2 text-xs uppercase tracking-[0.16em] text-ink-subtle">{label}</p>
+      <p className="relative mt-2 text-[10px] uppercase leading-snug tracking-[0.12em] text-ink-subtle sm:text-xs sm:tracking-[0.16em]">
+        {label}
+      </p>
     </div>
   );
 }
@@ -104,7 +106,7 @@ export function StatsStrip() {
     <section ref={ref} className="relative border-y border-line py-16 lg:py-20" aria-label="Key metrics">
       <div className="mx-auto grid max-w-7xl grid-cols-2 gap-3 px-5 sm:gap-4 sm:px-8 lg:grid-cols-4 lg:px-10">
         {siteConfig.stats.map((stat, i) => (
-          <div key={stat.label} data-stat>
+          <div key={stat.label} data-stat className="min-w-0">
             <StatCell {...stat} active={active} index={i} />
           </div>
         ))}

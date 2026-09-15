@@ -30,54 +30,91 @@ export function Hero() {
     if (!section || !visual || !content) return;
     if (reduced) return;
 
-    const ctx = gsap.context(() => {
-      gsap.to(visual, {
-        scale: 0.84,
-        borderRadius: 28,
-        yPercent: 6,
-        ease: "none",
-        scrollTrigger: {
-          trigger: section,
-          start: "top top",
-          end: "bottom top",
-          scrub: 1.15,
-        },
-      });
+    const mm = gsap.matchMedia();
 
-      gsap.to(content, {
-        opacity: 0,
-        y: -48,
-        ease: "none",
-        scrollTrigger: {
-          trigger: section,
-          start: "top top",
-          end: "55% top",
-          scrub: 1.1,
-        },
-      });
-    }, section);
+    mm.add("(min-width: 768px)", () => {
+      const ctx = gsap.context(() => {
+        gsap.to(visual, {
+          scale: 0.84,
+          borderRadius: 28,
+          yPercent: 6,
+          ease: "none",
+          scrollTrigger: {
+            trigger: section,
+            start: "top top",
+            end: "bottom top",
+            scrub: 1.15,
+          },
+        });
 
-    const onMove = (e: MouseEvent) => {
-      if (!parallax) return;
-      const { innerWidth, innerHeight } = window;
-      const x = (e.clientX / innerWidth - 0.5) * 28;
-      const y = (e.clientY / innerHeight - 0.5) * 18;
-      gsap.to(parallax, { x, y, duration: 1.15, ease: "power3.out" });
-    };
+        gsap.to(content, {
+          opacity: 0,
+          y: -48,
+          ease: "none",
+          scrollTrigger: {
+            trigger: section,
+            start: "top top",
+            end: "55% top",
+            scrub: 1.1,
+          },
+        });
+      }, section);
 
-    window.addEventListener("mousemove", onMove);
+      const onMove = (e: MouseEvent) => {
+        if (!parallax) return;
+        const { innerWidth, innerHeight } = window;
+        const x = (e.clientX / innerWidth - 0.5) * 28;
+        const y = (e.clientY / innerHeight - 0.5) * 18;
+        gsap.to(parallax, { x, y, duration: 1.15, ease: "power3.out" });
+      };
 
-    return () => {
-      window.removeEventListener("mousemove", onMove);
-      ctx.revert();
-    };
+      window.addEventListener("mousemove", onMove);
+
+      return () => {
+        window.removeEventListener("mousemove", onMove);
+        ctx.revert();
+      };
+    });
+
+    // Softer scrub on mobile so content isn't crushed into overflow clip
+    mm.add("(max-width: 767px)", () => {
+      const ctx = gsap.context(() => {
+        gsap.to(visual, {
+          scale: 0.94,
+          borderRadius: 16,
+          ease: "none",
+          scrollTrigger: {
+            trigger: section,
+            start: "top top",
+            end: "bottom top",
+            scrub: 1,
+          },
+        });
+
+        gsap.to(content, {
+          opacity: 0,
+          y: -24,
+          ease: "none",
+          scrollTrigger: {
+            trigger: section,
+            start: "top top",
+            end: "60% top",
+            scrub: 1,
+          },
+        });
+      }, section);
+
+      return () => ctx.revert();
+    });
+
+    return () => mm.revert();
   }, [reduced]);
 
   return (
     <section
       ref={sectionRef}
       id="home"
-      className="relative flex h-[100svh] items-end overflow-hidden"
+      className="relative flex min-h-[100svh] items-end overflow-hidden"
     >
       <div
         ref={visualRef}
@@ -95,7 +132,7 @@ export function Hero() {
               `,
             }}
           />
-          <div className="absolute inset-0 opacity-45">
+          <div className="absolute inset-0 hidden opacity-45 md:block">
             <HeroGeometry />
           </div>
           <TechnicalGrid variant="scan" className="opacity-80" />
@@ -105,17 +142,17 @@ export function Hero() {
 
       <div
         ref={contentRef}
-        className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-16 pt-28 sm:px-8 sm:pb-20 lg:px-10 lg:pb-24"
+        className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-10 pt-24 sm:px-8 sm:pb-20 sm:pt-28 lg:px-10 lg:pb-24"
       >
-        <p className="mb-5 font-mono text-[11px] uppercase tracking-[0.28em] text-accent">
+        <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.28em] text-accent sm:mb-5">
           {siteConfig.company.eyebrow}
         </p>
 
-        <div className="mb-6">
-          <BrandLogo variant="wordmark" priority className="h-10 sm:h-12 lg:h-14" />
+        <div className="mb-5 sm:mb-6">
+          <BrandLogo variant="wordmark" priority className="h-8 sm:h-12 lg:h-14" />
         </div>
 
-        <h1 className="max-w-5xl font-display text-5xl leading-[0.92] tracking-tight text-ink sm:text-6xl md:text-7xl lg:text-[6.5rem]">
+        <h1 className="max-w-5xl font-display text-4xl leading-[0.92] tracking-tight text-ink sm:text-6xl md:text-7xl lg:text-[6.5rem]">
           <AnimatedText
             as="span"
             text={siteConfig.hero.headline}
@@ -127,18 +164,18 @@ export function Hero() {
           />
         </h1>
 
-        <p className="mt-7 max-w-xl text-base leading-relaxed text-ink-muted sm:text-lg">
+        <p className="mt-5 max-w-xl text-sm leading-relaxed text-ink-muted sm:mt-7 sm:text-lg">
           {siteConfig.hero.subcopy}
         </p>
 
-        <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
+        <div className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:items-center">
           <Button href="/#contact">{siteConfig.ctas.primary}</Button>
           <Button href="/#story" variant="secondary">
             Enter the system
           </Button>
         </div>
 
-        <div className="mt-14 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.22em] text-ink-subtle">
+        <div className="mt-10 hidden items-center gap-3 font-mono text-[10px] uppercase tracking-[0.22em] text-ink-subtle sm:mt-14 sm:flex">
           <span className="h-px w-10 bg-accent/60" />
           Scroll to enter system
         </div>

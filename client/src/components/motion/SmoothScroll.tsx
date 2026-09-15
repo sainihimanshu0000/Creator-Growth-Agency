@@ -13,79 +13,109 @@ export function SmoothScroll() {
       return;
     }
 
-    const lenis = new Lenis({
-      // Softer, more cinematic inertia
-      lerp: 0.075,
-      duration: 1.45,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-      wheelMultiplier: 0.82,
-      touchMultiplier: 1.15,
-      syncTouch: true,
-      syncTouchLerp: 0.075,
-      infinite: false,
-    });
+    // Native touch scroll on phones — Lenis syncTouch fights horizontal carousels
+    const desktopMq = window.matchMedia("(min-width: 768px)");
+    let lenis: Lenis | null = null;
+    let ticker: ((time: number) => void) | null = null;
+    let refreshTimers: number[] = [];
+    let onClick: ((e: MouseEvent) => void) | null = null;
+    let onLoad: (() => void) | null = null;
+    let onResize: (() => void) | null = null;
 
-    (window as Window & { __lenis?: Lenis }).__lenis = lenis;
-
-    // Keep ScrollTrigger in sync with Lenis virtual scroll
-    lenis.on("scroll", ScrollTrigger.update);
-
-    const ticker = (time: number) => {
-      lenis.raf(time * 1000);
+    const teardown = () => {
+      if (onClick) document.removeEventListener("click", onClick);
+      if (onLoad) window.removeEventListener("load", onLoad);
+      if (onResize) window.removeEventListener("resize", onResize);
+      refreshTimers.forEach((id) => window.clearTimeout(id));
+      refreshTimers = [];
+      if (ticker) gsap.ticker.remove(ticker);
+      ticker = null;
+      onClick = null;
+      onLoad = null;
+      onResize = null;
+      delete (window as Window & { __lenis?: Lenis }).__lenis;
+      lenis?.destroy();
+      lenis = null;
     };
-    gsap.ticker.add(ticker);
-    gsap.ticker.lagSmoothing(0);
 
-    // Recalculate pin distances after fonts/images settle
-    const refresh = () => ScrollTrigger.refresh();
-    const refreshTimers = [400, 1200, 2500].map((ms) => window.setTimeout(refresh, ms));
-    window.addEventListener("load", refresh);
-    window.addEventListener("resize", refresh);
+    const setup = () => {
+      teardown();
+      if (!desktopMq.matches) {
+        ScrollTrigger.refresh();
+        return;
+      }
 
-    const onClick = (e: MouseEvent) => {
-      const target = e.target as HTMLElement | null;
-      const anchor = target?.closest?.("a[href*='#']") as HTMLAnchorElement | null;
-      if (!anchor) return;
-
-      const href = anchor.getAttribute("href");
-      if (!href) return;
-
-      const hashIndex = href.indexOf("#");
-      if (hashIndex === -1) return;
-      const hash = href.slice(hashIndex);
-      if (hash === "#") return;
-
-      const path = href.slice(0, hashIndex);
-      const samePage =
-        !path ||
-        path === window.location.pathname ||
-        href.startsWith("#") ||
-        href.startsWith("/#");
-      if (!samePage) return;
-
-      const el = document.querySelector(hash);
-      if (!el) return;
-
-      e.preventDefault();
-      lenis.scrollTo(el as HTMLElement, {
-        offset: -80,
-        duration: 1.55,
-        easing: (t) => 1 - Math.pow(1 - t, 3),
+      lenis = new Lenis({
+        lerp: 0.075,
+        duration: 1.45,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smoothWheel: true,
+        wheelMultiplier: 0.82,
+        touchMultiplier: 1.15,
+        syncTouch: false,
+        infinite: false,
       });
-      history.pushState(null, "", hash);
+
+      (window as Window & { __lenis?: Lenis }).__lenis = lenis;
+
+      lenis.on("scroll", ScrollTrigger.update);
+
+      ticker = (time: number) => {
+        lenis?.raf(time * 1000);
+      };
+      gsap.ticker.add(ticker);
+      gsap.ticker.lagSmoothing(0);
+
+      const refresh = () => ScrollTrigger.refresh();
+      refreshTimers = [400, 1200, 2500].map((ms) => window.setTimeout(refresh, ms));
+      onLoad = refresh;
+      onResize = refresh;
+      window.addEventListener("load", onLoad);
+      window.addEventListener("resize", onResize);
+
+      onClick = (e: MouseEvent) => {
+        if (!lenis) return;
+        const target = e.target as HTMLElement | null;
+        const anchor = target?.closest?.("a[href*='#']") as HTMLAnchorElement | null;
+        if (!anchor) return;
+
+        const href = anchor.getAttribute("href");
+        if (!href) return;
+
+        const hashIndex = href.indexOf("#");
+        if (hashIndex === -1) return;
+        const hash = href.slice(hashIndex);
+        if (hash === "#") return;
+
+        const path = href.slice(0, hashIndex);
+        const samePage =
+          !path ||
+          path === window.location.pathname ||
+          href.startsWith("#") ||
+          href.startsWith("/#");
+        if (!samePage) return;
+
+        const el = document.querySelector(hash);
+        if (!el) return;
+
+        e.preventDefault();
+        lenis.scrollTo(el as HTMLElement, {
+          offset: -80,
+          duration: 1.55,
+          easing: (t) => 1 - Math.pow(1 - t, 3),
+        });
+        history.pushState(null, "", hash);
+      };
+
+      document.addEventListener("click", onClick);
     };
 
-    document.addEventListener("click", onClick);
+    setup();
+    desktopMq.addEventListener("change", setup);
 
     return () => {
-      document.removeEventListener("click", onClick);
-      window.removeEventListener("load", refresh);
-      window.removeEventListener("resize", refresh);
-      refreshTimers.forEach((id) => window.clearTimeout(id));
-      gsap.ticker.remove(ticker);
-      delete (window as Window & { __lenis?: Lenis }).__lenis;
-      lenis.destroy();
+      desktopMq.removeEventListener("change", setup);
+      teardown();
       ScrollTrigger.getAll().forEach((t) => t.kill());
     };
   }, []);

@@ -67,7 +67,11 @@ export function FeatureSection({
           </div>
         </div>
 
-        <ScrollReveal scale={0.92} y={0} className="relative aspect-square w-full">
+        <ScrollReveal
+          scale={0.92}
+          y={0}
+          className="relative mx-auto aspect-square w-full max-h-[280px] max-w-[280px] sm:max-h-[360px] sm:max-w-[360px] lg:max-h-none lg:max-w-none"
+        >
           <div className="absolute inset-0 border border-line bg-canvas-elevated/50">
             <FeatureGeometry />
             <TechnicalGrid variant="scan" showCoords className="opacity-50" />

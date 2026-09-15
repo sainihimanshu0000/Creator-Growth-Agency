@@ -23,10 +23,13 @@ export function Footer() {
             <p className="text-xs font-medium uppercase tracking-[0.18em] text-ink-subtle">
               Verticals
             </p>
-            <ul className="mt-4 space-y-2.5">
+            <ul className="mt-4 space-y-1">
               {columns.Verticals.map((item) => (
                 <li key={item}>
-                  <Link href="/#verticals" className="text-sm text-ink-muted hover:text-accent">
+                  <Link
+                    href="/#verticals"
+                    className="inline-flex min-h-10 items-center text-sm text-ink-muted hover:text-accent"
+                  >
                     {item}
                   </Link>
                 </li>
@@ -38,10 +41,13 @@ export function Footer() {
             <p className="text-xs font-medium uppercase tracking-[0.18em] text-ink-subtle">
               Company
             </p>
-            <ul className="mt-4 space-y-2.5">
+            <ul className="mt-4 space-y-1">
               {columns.Company.map((item) => (
                 <li key={item.label}>
-                  <Link href={item.href} className="text-sm text-ink-muted hover:text-accent">
+                  <Link
+                    href={item.href}
+                    className="inline-flex min-h-10 items-center text-sm text-ink-muted hover:text-accent"
+                  >
                     {item.label}
                   </Link>
                 </li>
@@ -53,10 +59,13 @@ export function Footer() {
             <p className="text-xs font-medium uppercase tracking-[0.18em] text-ink-subtle">
               Programs
             </p>
-            <ul className="mt-4 space-y-2.5">
+            <ul className="mt-4 space-y-1">
               {columns.Programs.map((item) => (
                 <li key={item.label}>
-                  <Link href={item.href} className="text-sm text-ink-muted hover:text-accent">
+                  <Link
+                    href={item.href}
+                    className="inline-flex min-h-10 items-center text-sm text-ink-muted hover:text-accent"
+                  >
                     {item.label}
                   </Link>
                 </li>
@@ -68,10 +77,13 @@ export function Footer() {
             <p className="text-xs font-medium uppercase tracking-[0.18em] text-ink-subtle">
               Governance
             </p>
-            <ul className="mt-4 space-y-2.5">
+            <ul className="mt-4 space-y-1">
               {columns.Governance.map((item) => (
                 <li key={item.label}>
-                  <Link href={item.href} className="text-sm text-ink-muted hover:text-accent">
+                  <Link
+                    href={item.href}
+                    className="inline-flex min-h-10 items-center text-sm text-ink-muted hover:text-accent"
+                  >
                     {item.label}
                   </Link>
                 </li>
@@ -80,11 +92,11 @@ export function Footer() {
             <p className="mt-6 text-xs font-medium uppercase tracking-[0.18em] text-ink-subtle">
               Contact
             </p>
-            <ul className="mt-3 space-y-2">
+            <ul className="mt-3 space-y-1">
               <li>
                 <a
                   href={`mailto:${siteConfig.contact.brandEmail}`}
-                  className="text-sm text-ink-muted hover:text-accent"
+                  className="inline-flex min-h-10 items-center text-sm text-ink-muted hover:text-accent"
                 >
                   {siteConfig.contact.brandEmail}
                 </a>
@@ -92,7 +104,7 @@ export function Footer() {
               <li>
                 <a
                   href={`mailto:${siteConfig.contact.creatorEmail}`}
-                  className="text-sm text-ink-muted hover:text-accent"
+                  className="inline-flex min-h-10 items-center text-sm text-ink-muted hover:text-accent"
                 >
                   {siteConfig.contact.creatorEmail}
                 </a>

@@ -178,7 +178,7 @@ export function Contact() {
                   type="button"
                   role="tab"
                   aria-selected={mode === tab.id}
-                  className={`px-3 py-3 text-sm font-semibold transition-colors ${
+                  className={`min-h-11 px-2 py-3 text-xs font-semibold leading-tight transition-colors sm:px-3 sm:text-sm ${
                     mode === tab.id
                       ? "bg-[#c8f542] text-[#0c0e0c]"
                       : "bg-transparent text-ink-muted hover:text-ink"

@@ -53,7 +53,7 @@ export function Header() {
   return (
     <header
       ref={headerRef}
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
+      className={`fixed inset-x-0 top-0 z-50 pt-[env(safe-area-inset-top)] transition-all duration-500 ${
         scrolled || open
           ? "border-b border-white/10 bg-canvas/55 shadow-[0_8px_40px_rgba(0,0,0,0.25)] backdrop-blur-xl"
           : "bg-transparent"
@@ -62,7 +62,7 @@ export function Header() {
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-8 lg:h-[4.25rem] lg:px-10">
         <Link
           href="/#home"
-          className="inline-flex items-center"
+          className="inline-flex min-h-11 items-center"
           onClick={() => setOpen(false)}
           aria-label={siteConfig.company.name}
         >
@@ -90,7 +90,7 @@ export function Header() {
         <button
           ref={menuButtonRef}
           type="button"
-          className="inline-flex h-10 w-10 items-center justify-center text-ink lg:hidden"
+          className="inline-flex h-11 w-11 items-center justify-center text-ink lg:hidden"
           aria-expanded={open}
           aria-controls="mobile-nav"
           aria-label={open ? "Close menu" : "Open menu"}
@@ -109,13 +109,16 @@ export function Header() {
       </div>
 
       {open ? (
-        <div id="mobile-nav" className="border-t border-line bg-canvas/95 backdrop-blur-xl lg:hidden">
-          <div className="flex flex-col gap-1 px-5 py-4 sm:px-8">
+        <div
+          id="mobile-nav"
+          className="fixed inset-x-0 bottom-0 top-[calc(4rem+env(safe-area-inset-top))] overflow-y-auto border-t border-line bg-canvas/98 backdrop-blur-xl lg:hidden"
+        >
+          <div className="flex min-h-full flex-col gap-1 px-5 py-4 pb-[max(1.5rem,env(safe-area-inset-bottom))] sm:px-8">
             {siteConfig.nav.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="py-3 font-mono text-sm uppercase tracking-[0.14em] text-ink-muted hover:text-ink"
+                className="py-3.5 font-mono text-sm uppercase tracking-[0.14em] text-ink-muted hover:text-ink"
                 onClick={() => setOpen(false)}
               >
                 {item.label}
