@@ -11,21 +11,21 @@ export function Insights() {
     <section id="insights" className="py-20 lg:py-28">
       <Container>
         <SectionHeading
-          eyebrow="Insights"
-          title="Thought leadership for commercial teams"
-          description="Short briefs on creator economics, brand safety, and reporting that leadership trusts."
+          eyebrow={siteConfig.playbooks.headline}
+          title={siteConfig.playbooks.subcopy}
+          description="How we structure campaigns to ensure reliable delivery without guesswork."
         />
 
         <div className="mt-14 grid gap-5 md:grid-cols-3">
-          {siteConfig.insights.map((insight, i) => (
-            <Reveal key={insight.title} variant="up" delay={i * 100}>
+          {siteConfig.playbooks.items.map((playbook, i) => (
+            <Reveal key={playbook.number} variant="up" delay={i * 100}>
               <Link
-                href={insight.href}
+                href="/#features"
                 className="motion-lift group flex h-full flex-col border border-line bg-canvas-elevated/50 p-6 hover:border-accent/40 hover:bg-accent-dim/40"
               >
-                <h3 className="text-xl text-ink group-hover:text-accent">{insight.title}</h3>
+                <h3 className="text-xl text-ink group-hover:text-accent">{playbook.title}</h3>
                 <p className="mt-3 flex-1 text-sm leading-relaxed text-ink-muted">
-                  {insight.line}
+                  {playbook.objective} {playbook.execution}
                 </p>
                 <span className="mt-6 text-sm font-medium text-accent">
                   Request insight brief →

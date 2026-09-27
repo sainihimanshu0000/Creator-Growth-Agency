@@ -1,11 +1,20 @@
 "use client";
 
-import { siteConfig } from "@/config/siteConfig";
 import { ScrollReveal } from "@/components/cinematic/ScrollReveal";
 import { TechnicalGrid } from "@/components/cinematic/TechnicalGrid";
 import { AnimatedText } from "@/components/cinematic/AnimatedText";
 
-export function Team() {
+type TeamMember = {
+  name: string;
+  role: string;
+  title: string;
+  initials: string;
+  bio: string;
+};
+
+export function Team({ members = [] }: { members?: readonly TeamMember[] }) {
+  if (members.length === 0) return null;
+
   return (
     <section id="team" className="relative overflow-hidden border-y border-line py-24 lg:py-32">
       <TechnicalGrid variant="sparse" className="opacity-35" />
@@ -24,7 +33,7 @@ export function Team() {
         </p>
 
         <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {siteConfig.team.map((person, i) => (
+          {members.map((person, i) => (
             <ScrollReveal key={person.name} delay={i * 0.08} y={36}>
               <article className="group relative border border-line bg-canvas/40 p-5 transition-colors hover:border-accent/35">
                 <TechnicalGrid variant="sparse" showCoords={false} animate={false} className="opacity-20" />
