@@ -3,6 +3,8 @@ import { Syne, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/config/siteConfig";
 import { SkipLink } from "@/components/SkipLink";
+import { Header } from "@/components/Header";
+import { SmoothScroll } from "@/components/motion/SmoothScroll";
 
 const syne = Syne({
   subsets: ["latin"],
@@ -70,7 +72,9 @@ export default function RootLayout({
     <html lang="en" className={`${syne.variable} ${dmSans.variable}`}>
       <body className="min-h-screen bg-canvas text-ink antialiased">
         <SkipLink />
-        {children}
+        <SmoothScroll />
+        <Header />
+        <main id="main">{children}</main>
       </body>
     </html>
   );

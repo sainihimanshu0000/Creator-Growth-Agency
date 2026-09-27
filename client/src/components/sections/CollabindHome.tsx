@@ -45,7 +45,6 @@ export function CollabindHome() {
             </Link>
           </div>
 
-          {/* Stats */}
           <div className="motion-fade-up motion-delay-4 mx-auto mt-14 grid max-w-4xl grid-cols-2 border-y border-line sm:grid-cols-4">
             {siteConfig.stats.map((stat, index) => (
               <div
@@ -326,7 +325,7 @@ export function CollabindHome() {
         </div>
       </section>
 
-      {/* ================= CREATOR BAND CTA ================= */}
+      {/* ================= CTA BAND ================= */}
       <section className="home-creator-band px-5 py-14 sm:px-8 sm:py-20">
         <div className="mx-auto grid max-w-6xl gap-6 lg:grid-cols-[1fr_auto] lg:items-center lg:gap-10">
           <div>

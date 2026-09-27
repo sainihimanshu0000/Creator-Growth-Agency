@@ -34,18 +34,41 @@
     --accent: var(--brand-accent);
     --accent-dim: var(--brand-accent-dim);
     --accent-ink: var(--brand-accent-ink);
+    /* ✅ SINGLE SOURCE for anchor offset */
+    --header-offset: 5.5rem;
 }
 
 * {
     box-sizing: border-box;
 }
 
+
+/* ============================================================
+   ANCHOR SCROLL FIX
+   ============================================================ */
+
 html {
-    scroll-padding-top: 5.5rem;
+    scroll-padding-top: var(--header-offset);
 }
 
 html:not(.lenis) {
     scroll-behavior: smooth;
+}
+
+
+/* Apply scroll offset to EVERY element with an id */
+
+:where(section, div, article, span, main)[id] {
+    scroll-margin-top: var(--header-offset);
+}
+
+.anchor-alias {
+    position: absolute;
+    top: calc(var(--header-offset) * -1);
+    display: block;
+    width: 1px;
+    height: 1px;
+    pointer-events: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -53,9 +76,20 @@ html:not(.lenis) {
         scroll-behavior: auto;
     }
     .animate-marquee,
-    .animated-text__unit {
+    .animated-text__unit,
+    .home-ticker__track {
         animation: none !important;
         transition: none !important;
+    }
+    .home-button,
+    .home-playbook__rule {
+        transition: none;
+    }
+}
+
+@media (max-width: 639px) {
+     :root {
+        --header-offset: 5rem;
     }
 }
 
@@ -171,7 +205,9 @@ button.btn-primary:hover {
 }
 
 
-/* Collabind landing page */
+/* ============================================================
+   Collabind landing page
+   ============================================================ */
 
 .home-hero {
     background: linear-gradient(180deg, rgba(9, 13, 16, 0.1), var(--canvas)), radial-gradient(ellipse 70% 52% at 50% 0%, rgba(0, 223, 229, 0.08), transparent 70%);
@@ -281,7 +317,6 @@ button.btn-primary:hover {
 
 .home-section {
     position: relative;
-    scroll-margin-top: 5.5rem;
 }
 
 .home-process,
@@ -433,11 +468,6 @@ button.btn-primary:hover {
     color: var(--brand-lime);
 }
 
-.anchor-alias {
-    position: absolute;
-    top: -5.5rem;
-}
-
 @media (max-width: 639px) {
     .home-stat:nth-child(3) {
         border-left: 0;
@@ -448,18 +478,10 @@ button.btn-primary:hover {
     }
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .home-ticker__track {
-        animation: none;
-    }
-    .home-button,
-    .home-playbook__rule {
-        transition: none;
-    }
-}
 
-
-/* Lenis */
+/* ============================================================
+   Lenis
+   ============================================================ */
 
 html.lenis,
 html.lenis body {
@@ -487,7 +509,9 @@ html.lenis {
 }
 
 
-/* Keep scroll-linked transforms on the GPU */
+/* ============================================================
+   Keep scroll-linked transforms on the GPU
+   ============================================================ */
 
 [data-media],
 [data-scale-card],
@@ -495,10 +519,6 @@ html.lenis {
     backface-visibility: hidden;
     will-change: transform;
 }
-
-
-/* Mobile: simplify pinned feel via shorter panels handled in JS;
-   ensure overflow doesn't break horizontal track */
 
 @media (max-width: 768px) {
     .animated-text__unit {

@@ -141,9 +141,13 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="relative overflow-hidden py-24 lg:py-32">
+    // ✅ FIX: home-section class + scroll-mt-24 for header offset
+    <section
+      id="contact"
+      className="home-section relative scroll-mt-24 overflow-hidden px-5 py-16 sm:px-8 sm:py-24 lg:py-28"
+    >
       <TechnicalGrid variant="sparse" className="opacity-30" />
-      <Container className="relative z-10">
+      <div className="relative z-10 mx-auto max-w-6xl">
         <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.24em] text-accent">
           Contact
         </p>
@@ -153,331 +157,344 @@ export function Contact() {
           mode="words"
           className="max-w-2xl font-display text-3xl tracking-tight text-ink sm:text-4xl lg:text-5xl"
         />
-        <p className="mt-4 max-w-xl text-base text-ink-muted">{siteConfig.contactSection.subcopy}</p>
+        <p className="mt-4 max-w-xl text-base text-ink-muted">
+          {siteConfig.contactSection.subcopy}
+        </p>
 
         <div className="mt-12 grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:gap-14">
           <ScrollReveal y={40}>
-          <form
-            onSubmit={onSubmit}
-            noValidate
-            className="border border-line bg-canvas-elevated/40 p-5 sm:p-8"
-          >
-            <div
-              className="grid grid-cols-2 border border-line"
-              role="tablist"
-              aria-label="Inquiry type"
+            <form
+              onSubmit={onSubmit}
+              noValidate
+              className="border border-line bg-canvas-elevated/40 p-5 sm:p-8"
             >
-              {(
-                [
-                  { id: "brand", label: "Client / Brand" },
-                  { id: "creator", label: "Creator / Talent" },
-                ] as const
-              ).map((tab) => (
-                <button
-                  key={tab.id}
-                  type="button"
-                  role="tab"
-                  aria-selected={mode === tab.id}
-                  className={`min-h-11 px-2 py-3 text-xs font-semibold leading-tight transition-colors sm:px-3 sm:text-sm ${
-                    mode === tab.id
-                      ? "bg-[#c8f542] text-[#0c0e0c]"
-                      : "bg-transparent text-ink-muted hover:text-ink"
-                  }`}
-                  style={
-                    mode === tab.id
-                      ? { backgroundColor: "#c8f542", color: "#0c0e0c" }
-                      : undefined
-                  }
-                  onClick={() => {
-                    setMode(tab.id);
-                    setErrors({});
-                    setStatus("idle");
-                  }}
-                >
-                  {tab.label}
-                </button>
-              ))}
-            </div>
-
-            <div className="mt-6 grid gap-5 sm:grid-cols-2">
-              {/* Honeypot — leave empty */}
-              <div className="hidden" aria-hidden="true">
-                <label htmlFor="website">Website</label>
-                <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+              <div
+                className="grid grid-cols-2 border border-line"
+                role="tablist"
+                aria-label="Inquiry type"
+              >
+                {(
+                  [
+                    { id: "brand", label: "Client / Brand" },
+                    { id: "creator", label: "Creator / Talent" },
+                  ] as const
+                ).map((tab) => (
+                  <button
+                    key={tab.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={mode === tab.id}
+                    className={`min-h-11 px-2 py-3 text-xs font-semibold leading-tight transition-colors sm:px-3 sm:text-sm ${
+                      mode === tab.id
+                        ? "bg-[#c8f542] text-[#0c0e0c]"
+                        : "bg-transparent text-ink-muted hover:text-ink"
+                    }`}
+                    style={
+                      mode === tab.id
+                        ? { backgroundColor: "#c8f542", color: "#0c0e0c" }
+                        : undefined
+                    }
+                    onClick={() => {
+                      setMode(tab.id);
+                      setErrors({});
+                      setStatus("idle");
+                    }}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
               </div>
 
-              {mode === "brand" ? (
-                <>
-                  <Field id="brand-name" label="Name" error={errors.name}>
-                    <input
-                      className={fieldClass}
-                      value={brand.name}
-                      onChange={(e) => {
-                        setBrand({ ...brand, name: e.target.value });
-                        setStatus("idle");
-                      }}
-                      autoComplete="name"
-                    />
-                  </Field>
-                  <Field id="brand-company" label="Company" error={errors.company}>
-                    <input
-                      className={fieldClass}
-                      value={brand.company}
-                      onChange={(e) => {
-                        setBrand({ ...brand, company: e.target.value });
-                        setStatus("idle");
-                      }}
-                      autoComplete="organization"
-                    />
-                  </Field>
-                  <Field id="brand-email" label="Work email" error={errors.email}>
-                    <input
-                      type="email"
-                      className={fieldClass}
-                      value={brand.email}
-                      onChange={(e) => {
-                        setBrand({ ...brand, email: e.target.value });
-                        setStatus("idle");
-                      }}
-                      autoComplete="email"
-                    />
-                  </Field>
-                  <Field id="brand-whatsapp" label="WhatsApp (optional)">
-                    <input
-                      className={fieldClass}
-                      value={brand.whatsapp}
-                      onChange={(e) => setBrand({ ...brand, whatsapp: e.target.value })}
-                      placeholder="+91…"
-                    />
-                  </Field>
-                  <Field
-                    id="brand-industry"
-                    label="Industry"
-                    error={errors.industry}
-                    className="sm:col-span-2"
-                  >
-                    <select
-                      className={fieldClass}
-                      value={brand.industry}
-                      onChange={(e) => {
-                        setBrand({ ...brand, industry: e.target.value });
-                        setStatus("idle");
-                      }}
-                    >
-                      <option value="">Select industry</option>
-                      {siteConfig.industries.map((ind) => (
-                        <option key={ind} value={ind}>
-                          {ind}
-                        </option>
-                      ))}
-                    </select>
-                  </Field>
-                  <Field
-                    id="brand-brief"
-                    label="Brief"
-                    error={errors.brief}
-                    className="sm:col-span-2"
-                  >
-                    <textarea
-                      className={`${fieldClass} min-h-[120px] resize-y`}
-                      value={brand.brief}
-                      onChange={(e) => {
-                        setBrand({ ...brand, brief: e.target.value });
-                        setStatus("idle");
-                      }}
-                      placeholder="Objectives, budget band, timeline, markets…"
-                    />
-                  </Field>
-                </>
-              ) : (
-                <>
-                  <Field
-                    id="creator-channel"
-                    label="Channel name"
-                    error={errors.channelName}
-                  >
-                    <input
-                      className={fieldClass}
-                      value={creator.channelName}
-                      onChange={(e) => {
-                        setCreator({ ...creator, channelName: e.target.value });
-                        setStatus("idle");
-                      }}
-                    />
-                  </Field>
-                  <Field id="creator-email" label="Email" error={errors.email}>
-                    <input
-                      type="email"
-                      className={fieldClass}
-                      value={creator.email}
-                      onChange={(e) => {
-                        setCreator({ ...creator, email: e.target.value });
-                        setStatus("idle");
-                      }}
-                    />
-                  </Field>
-                  <Field id="creator-platform" label="Platform" error={errors.platform}>
-                    <select
-                      className={fieldClass}
-                      value={creator.platform}
-                      onChange={(e) => {
-                        setCreator({ ...creator, platform: e.target.value });
-                        setStatus("idle");
-                      }}
-                    >
-                      <option value="">Select platform</option>
-                      {siteConfig.platforms.map((p) => (
-                        <option key={p} value={p}>
-                          {p}
-                        </option>
-                      ))}
-                    </select>
-                  </Field>
-                  <Field id="creator-followers" label="Followers" error={errors.followers}>
-                    <input
-                      className={fieldClass}
-                      value={creator.followers}
-                      onChange={(e) => {
-                        setCreator({ ...creator, followers: e.target.value });
-                        setStatus("idle");
-                      }}
-                      placeholder="e.g. 250K"
-                    />
-                  </Field>
-                  <Field id="creator-youtube" label="YouTube link">
-                    <input
-                      className={fieldClass}
-                      value={creator.youtube}
-                      onChange={(e) =>
-                        setCreator({ ...creator, youtube: e.target.value })
-                      }
-                      placeholder="https://"
-                    />
-                  </Field>
-                  <Field id="creator-instagram" label="Instagram link">
-                    <input
-                      className={fieldClass}
-                      value={creator.instagram}
-                      onChange={(e) =>
-                        setCreator({ ...creator, instagram: e.target.value })
-                      }
-                      placeholder="https://"
-                    />
-                  </Field>
-                  <Field
-                    id="creator-interest"
-                    label="Collaboration interest"
-                    error={errors.interest}
-                    className="sm:col-span-2"
-                  >
-                    <input
-                      className={fieldClass}
-                      value={creator.interest}
-                      onChange={(e) => {
-                        setCreator({ ...creator, interest: e.target.value });
-                        setStatus("idle");
-                      }}
-                      placeholder="Brand deals, long-term pods, vertical focus…"
-                    />
-                  </Field>
-                  <Field
-                    id="creator-details"
-                    label="Details"
-                    error={errors.details}
-                    className="sm:col-span-2"
-                  >
-                    <textarea
-                      className={`${fieldClass} min-h-[120px] resize-y`}
-                      value={creator.details}
-                      onChange={(e) => {
-                        setCreator({ ...creator, details: e.target.value });
-                        setStatus("idle");
-                      }}
-                      placeholder="Audience, niche, past brand work, rates…"
-                    />
-                  </Field>
-                </>
-              )}
-            </div>
+              <div className="mt-6 grid gap-5 sm:grid-cols-2">
+                {/* Honeypot — leave empty */}
+                <div className="hidden" aria-hidden="true">
+                  <label htmlFor="website">Website</label>
+                  <input
+                    id="website"
+                    name="website"
+                    type="text"
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
+                </div>
 
-            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <Button type="submit" disabled={status === "submitting"}>
-                {status === "submitting" ? "Sending…" : siteConfig.ctas.primary}
-              </Button>
-              {status === "success" ? (
-                <p className="text-sm text-accent" role="status">
-                  Received. We will respond within 1 business day.
-                </p>
-              ) : null}
-              {status === "error" ? (
-                <p className="text-sm text-[#f07167]" role="alert">
-                  Something went wrong. Email us directly or try again.
-                </p>
-              ) : null}
-            </div>
-          </form>
+                {mode === "brand" ? (
+                  <>
+                    <Field id="brand-name" label="Name" error={errors.name}>
+                      <input
+                        className={fieldClass}
+                        value={brand.name}
+                        onChange={(e) => {
+                          setBrand({ ...brand, name: e.target.value });
+                          setStatus("idle");
+                        }}
+                        autoComplete="name"
+                      />
+                    </Field>
+                    <Field id="brand-company" label="Company" error={errors.company}>
+                      <input
+                        className={fieldClass}
+                        value={brand.company}
+                        onChange={(e) => {
+                          setBrand({ ...brand, company: e.target.value });
+                          setStatus("idle");
+                        }}
+                        autoComplete="organization"
+                      />
+                    </Field>
+                    <Field id="brand-email" label="Work email" error={errors.email}>
+                      <input
+                        type="email"
+                        className={fieldClass}
+                        value={brand.email}
+                        onChange={(e) => {
+                          setBrand({ ...brand, email: e.target.value });
+                          setStatus("idle");
+                        }}
+                        autoComplete="email"
+                      />
+                    </Field>
+                    <Field id="brand-whatsapp" label="WhatsApp (optional)">
+                      <input
+                        className={fieldClass}
+                        value={brand.whatsapp}
+                        onChange={(e) => setBrand({ ...brand, whatsapp: e.target.value })}
+                        placeholder="+91…"
+                      />
+                    </Field>
+                    <Field
+                      id="brand-industry"
+                      label="Industry"
+                      error={errors.industry}
+                      className="sm:col-span-2"
+                    >
+                      <select
+                        className={fieldClass}
+                        value={brand.industry}
+                        onChange={(e) => {
+                          setBrand({ ...brand, industry: e.target.value });
+                          setStatus("idle");
+                        }}
+                      >
+                        <option value="">Select industry</option>
+                        {siteConfig.industries.map((ind) => (
+                          <option key={ind} value={ind}>
+                            {ind}
+                          </option>
+                        ))}
+                      </select>
+                    </Field>
+                    <Field
+                      id="brand-brief"
+                      label="Brief"
+                      error={errors.brief}
+                      className="sm:col-span-2"
+                    >
+                      <textarea
+                        className={`${fieldClass} min-h-[120px] resize-y`}
+                        value={brand.brief}
+                        onChange={(e) => {
+                          setBrand({ ...brand, brief: e.target.value });
+                          setStatus("idle");
+                        }}
+                        placeholder="Objectives, budget band, timeline, markets…"
+                      />
+                    </Field>
+                  </>
+                ) : (
+                  <>
+                    <Field
+                      id="creator-channel"
+                      label="Channel name"
+                      error={errors.channelName}
+                    >
+                      <input
+                        className={fieldClass}
+                        value={creator.channelName}
+                        onChange={(e) => {
+                          setCreator({ ...creator, channelName: e.target.value });
+                          setStatus("idle");
+                        }}
+                      />
+                    </Field>
+                    <Field id="creator-email" label="Email" error={errors.email}>
+                      <input
+                        type="email"
+                        className={fieldClass}
+                        value={creator.email}
+                        onChange={(e) => {
+                          setCreator({ ...creator, email: e.target.value });
+                          setStatus("idle");
+                        }}
+                      />
+                    </Field>
+                    <Field id="creator-platform" label="Platform" error={errors.platform}>
+                      <select
+                        className={fieldClass}
+                        value={creator.platform}
+                        onChange={(e) => {
+                          setCreator({ ...creator, platform: e.target.value });
+                          setStatus("idle");
+                        }}
+                      >
+                        <option value="">Select platform</option>
+                        {siteConfig.platforms.map((p) => (
+                          <option key={p} value={p}>
+                            {p}
+                          </option>
+                        ))}
+                      </select>
+                    </Field>
+                    <Field id="creator-followers" label="Followers" error={errors.followers}>
+                      <input
+                        className={fieldClass}
+                        value={creator.followers}
+                        onChange={(e) => {
+                          setCreator({ ...creator, followers: e.target.value });
+                          setStatus("idle");
+                        }}
+                        placeholder="e.g. 250K"
+                      />
+                    </Field>
+                    <Field id="creator-youtube" label="YouTube link">
+                      <input
+                        className={fieldClass}
+                        value={creator.youtube}
+                        onChange={(e) =>
+                          setCreator({ ...creator, youtube: e.target.value })
+                        }
+                        placeholder="https://"
+                      />
+                    </Field>
+                    <Field id="creator-instagram" label="Instagram link">
+                      <input
+                        className={fieldClass}
+                        value={creator.instagram}
+                        onChange={(e) =>
+                          setCreator({ ...creator, instagram: e.target.value })
+                        }
+                        placeholder="https://"
+                      />
+                    </Field>
+                    <Field
+                      id="creator-interest"
+                      label="Collaboration interest"
+                      error={errors.interest}
+                      className="sm:col-span-2"
+                    >
+                      <input
+                        className={fieldClass}
+                        value={creator.interest}
+                        onChange={(e) => {
+                          setCreator({ ...creator, interest: e.target.value });
+                          setStatus("idle");
+                        }}
+                        placeholder="Brand deals, long-term pods, vertical focus…"
+                      />
+                    </Field>
+                    <Field
+                      id="creator-details"
+                      label="Details"
+                      error={errors.details}
+                      className="sm:col-span-2"
+                    >
+                      <textarea
+                        className={`${fieldClass} min-h-[120px] resize-y`}
+                        value={creator.details}
+                        onChange={(e) => {
+                          setCreator({ ...creator, details: e.target.value });
+                          setStatus("idle");
+                        }}
+                        placeholder="Audience, niche, past brand work, rates…"
+                      />
+                    </Field>
+                  </>
+                )}
+              </div>
+
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+                <Button type="submit" disabled={status === "submitting"}>
+                  {status === "submitting" ? "Sending…" : siteConfig.ctas.primary}
+                </Button>
+                {status === "success" ? (
+                  <p className="text-sm text-accent" role="status">
+                    {/* ✅ FIX: use siteConfig for consistency */}
+                    Received. {siteConfig.contact.responseSla}
+                  </p>
+                ) : null}
+                {status === "error" ? (
+                  <p className="text-sm text-[#f07167]" role="alert">
+                    Something went wrong. Email us directly or try again.
+                  </p>
+                ) : null}
+              </div>
+            </form>
           </ScrollReveal>
 
           <ScrollReveal y={40} delay={0.1}>
-          <aside className="space-y-8 lg:pt-2">
-            <div>
-              <p className="text-xs font-medium uppercase tracking-[0.18em] text-ink-subtle">
-                Legal entity
-              </p>
-              <p className="mt-2 text-sm text-ink">{siteConfig.company.legalName}</p>
-              <p className="mt-1 text-sm text-ink-muted">{siteConfig.company.region}</p>
-            </div>
+            <aside className="space-y-8 lg:pt-2">
+              <div>
+                <p className="text-xs font-medium uppercase tracking-[0.18em] text-ink-subtle">
+                  Legal entity
+                </p>
+                <p className="mt-2 text-sm text-ink">{siteConfig.company.legalName}</p>
+                <p className="mt-1 text-sm text-ink-muted">{siteConfig.company.region}</p>
+              </div>
 
-            <div>
-              <p className="text-xs font-medium uppercase tracking-[0.18em] text-ink-subtle">
-                Emails
-              </p>
-              <ul className="mt-2 space-y-1.5 text-sm">
-                <li>
-                  <span className="text-ink-muted">Brands — </span>
-                  <a
-                    className="text-ink hover:text-accent"
-                    href={`mailto:${siteConfig.contact.brandEmail}`}
-                  >
-                    {siteConfig.contact.brandEmail}
-                  </a>
-                </li>
-                <li>
-                  <span className="text-ink-muted">Creators — </span>
-                  <a
-                    className="text-ink hover:text-accent"
-                    href={`mailto:${siteConfig.contact.creatorEmail}`}
-                  >
-                    {siteConfig.contact.creatorEmail}
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <p className="text-xs font-medium uppercase tracking-[0.18em] text-ink-subtle">
-                Response SLA
-              </p>
-              <p className="mt-2 text-sm text-ink-muted">{siteConfig.contact.responseSla}</p>
-            </div>
-
-            <div>
-              <p className="text-xs font-medium uppercase tracking-[0.18em] text-ink-subtle">
-                What happens next
-              </p>
-              <ol className="mt-3 space-y-3">
-                {siteConfig.contactSection.nextSteps.map((step, i) => (
-                  <li key={step} className="flex gap-3 text-sm text-ink-muted">
-                    <span className="font-display text-accent">{String(i + 1).padStart(2, "0")}</span>
-                    <span>{step}</span>
+              <div>
+                <p className="text-xs font-medium uppercase tracking-[0.18em] text-ink-subtle">
+                  Emails
+                </p>
+                <ul className="mt-2 space-y-1.5 text-sm">
+                  <li>
+                    <span className="text-ink-muted">Brands — </span>
+                    <a
+                      className="text-ink hover:text-accent"
+                      href={`mailto:${siteConfig.contact.brandEmail}`}
+                    >
+                      {siteConfig.contact.brandEmail}
+                    </a>
                   </li>
-                ))}
-              </ol>
-            </div>
-          </aside>
+                  <li>
+                    <span className="text-ink-muted">Creators — </span>
+                    <a
+                      className="text-ink hover:text-accent"
+                      href={`mailto:${siteConfig.contact.creatorEmail}`}
+                    >
+                      {siteConfig.contact.creatorEmail}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              <div>
+                <p className="text-xs font-medium uppercase tracking-[0.18em] text-ink-subtle">
+                  Response SLA
+                </p>
+                <p className="mt-2 text-sm text-ink-muted">
+                  {siteConfig.contact.responseSla}
+                </p>
+              </div>
+
+              <div>
+                <p className="text-xs font-medium uppercase tracking-[0.18em] text-ink-subtle">
+                  What happens next
+                </p>
+                <ol className="mt-3 space-y-3">
+                  {siteConfig.contactSection.nextSteps.map((step, i) => (
+                    <li key={step} className="flex gap-3 text-sm text-ink-muted">
+                      <span className="font-display text-accent">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span>{step}</span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            </aside>
           </ScrollReveal>
         </div>
-      </Container>
+      </div>
     </section>
   );
 }

@@ -7,12 +7,8 @@ import { Button } from "@/components/ui/Button";
 import { BrandLogo } from "@/components/ui/BrandLogo";
 import { gsap, registerGsap, usePrefersReducedMotion } from "@/lib/motion";
 
-const primaryNav = [
-  { label: "The Bridge", href: "/#approach" },
-  { label: "Creator Niches", href: "/#verticals" },
-  { label: "Playbooks", href: "/#playbooks" },
-  { label: "Get In Touch", href: "/#contact" },
-];
+// ✅ Single source of truth — siteConfig se aata hai
+const primaryNav = siteConfig.nav;
 
 export function Header() {
   const [open, setOpen] = useState(false);
@@ -127,7 +123,6 @@ export function Header() {
         </div>
       </header>
 
-      {/* Mobile menu — header ke BAHAR, apna z-index */}
       {open ? (
         <div
           id="mobile-nav"

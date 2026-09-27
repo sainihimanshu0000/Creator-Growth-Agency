@@ -15,7 +15,6 @@ export const siteConfig = {
     logoWordmark: "/brand/logo-wordmark-on-dark.png",
   },
 
-  /** Cinematic frame imagery (Unsplash) — used in place of abstract FRAME panels */
   frameImages: {
     story: [
       "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1600&q=80",
@@ -42,7 +41,7 @@ export const siteConfig = {
     creatorEmail: "partnerships@collabind.com",
     generalEmail: "partnerships@collabind.com",
     responseSla: "We respond within 24 hours.",
-    formEndpoint: "/api/contact", // or Formspree URL; empty falls back to /api/contact
+    formEndpoint: "/api/contact",
   },
 
   ctas: {
@@ -51,13 +50,12 @@ export const siteConfig = {
     secondaryServices: "Bring Me Collabs",
   },
 
+  // ✅ Nav matches actual section IDs in CollabindHome
   nav: [
-    { label: "Get Paid Collabs", href: "/#creators" },
-    { label: "Promote My Brand", href: "/#brands" },
-    { label: "How It Works", href: "/#story" },
-    { label: "Roster Matrix", href: "/#verticals" },
-    { label: "Playbooks", href: "/#features" },
-    { label: "Contact", href: "/#contact" },
+    { label: "The Bridge", href: "/#approach" },
+    { label: "Creator Niches", href: "/#verticals" },
+    { label: "Playbooks", href: "/#playbooks" },
+    { label: "Get In Touch", href: "/#contact" },
   ],
 
   verticals: [
@@ -193,32 +191,23 @@ export const siteConfig = {
       {
         number: "Playbook 01",
         title: "The Synchronized Product Launch",
-        objective:
-          "Feed saturation and immediate algorithm momentum.",
-        execution:
-          "10–15 vetted creators posting within a 72-hour window.",
-        coreAssets:
-          "Coordinated short-form video paired with discount codes.",
+        objective: "Feed saturation and immediate algorithm momentum.",
+        execution: "10–15 vetted creators posting within a 72-hour window.",
+        coreAssets: "Coordinated short-form video paired with discount codes.",
       },
       {
         number: "Playbook 02",
         title: "The Authority Funnel",
-        objective:
-          "Complex product education and long-term brand equity.",
-        execution:
-          "Deep integrations with trusted niche specialists.",
-        coreAssets:
-          "YouTube segments, podcast reads, and breakdowns.",
+        objective: "Complex product education and long-term brand equity.",
+        execution: "Deep integrations with trusted niche specialists.",
+        coreAssets: "YouTube segments, podcast reads, and breakdowns.",
       },
       {
         number: "Playbook 03",
         title: "The Paid UGC Performance Engine",
-        objective:
-          "Continuous creative testing for paid social advertising.",
-        execution:
-          "Ongoing sourcing of creator-led reviews and skits.",
-        coreAssets:
-          "Raw and polished video with 30–90 day whitelisting.",
+        objective: "Continuous creative testing for paid social advertising.",
+        execution: "Ongoing sourcing of creator-led reviews and skits.",
+        coreAssets: "Raw and polished video with 30–90 day whitelisting.",
       },
     ],
   },
@@ -265,18 +254,15 @@ export const siteConfig = {
       },
       {
         title: "Transparent Payments",
-        description:
-          "Transparent payment terms & clear dates.",
+        description: "Transparent payment terms & clear dates.",
       },
       {
         title: "Structured Briefs",
-        description:
-          "Structured briefs with agreed boundaries.",
+        description: "Structured briefs with agreed boundaries.",
       },
       {
         title: "Recurring Sponsorships",
-        description:
-          "Recurring brand sponsorship opportunities.",
+        description: "Recurring brand sponsorship opportunities.",
       },
     ],
     cta: "Apply to Join Roster",
@@ -289,18 +275,15 @@ export const siteConfig = {
     points: [
       {
         title: "Custom creator shortlist within 48 hours",
-        description:
-          "Custom creator shortlist within 48 hours.",
+        description: "Custom creator shortlist within 48 hours.",
       },
       {
         title: "Turnkey contracts, rights & payments managed",
-        description:
-          "Turnkey contracts, rights & payments managed.",
+        description: "Turnkey contracts, rights & payments managed.",
       },
       {
         title: "Real-time tracking & post-campaign analytics",
-        description:
-          "Real-time tracking & post-campaign analytics.",
+        description: "Real-time tracking & post-campaign analytics.",
       },
     ],
     cta: "Request a Brand Shortlist",
@@ -336,7 +319,7 @@ export const siteConfig = {
         { label: "Creator Niches", href: "/#verticals" },
       ],
       Company: [
-        { label: "The Bridge", href: "/#story" },
+        { label: "The Bridge", href: "/#approach" },
         { label: "Privacy Policy", href: "/privacy" },
         { label: "Terms of Service", href: "/terms" },
         { label: "Contact Support", href: "/#contact" },
