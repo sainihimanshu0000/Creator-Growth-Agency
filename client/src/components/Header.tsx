@@ -6,6 +6,12 @@ import { siteConfig } from "@/config/siteConfig";
 import { Button } from "@/components/ui/Button";
 import { BrandLogo } from "@/components/ui/BrandLogo";
 import { gsap, registerGsap, usePrefersReducedMotion } from "@/lib/motion";
+const primaryNav = [
+  { label: "The Bridge", href: "/#approach" },
+  { label: "Creator Niches", href: "/#verticals" },
+  { label: "Playbooks", href: "/#playbooks" },
+  { label: "Get In Touch", href: "/#contact" },
+];
 
 export function Header() {
   const [open, setOpen] = useState(false);
@@ -53,13 +59,9 @@ export function Header() {
   return (
     <header
       ref={headerRef}
-      className={`fixed inset-x-0 top-0 z-50 pt-[env(safe-area-inset-top)] transition-all duration-500 ${
-        scrolled || open
-          ? "border-b border-white/10 bg-canvas/55 shadow-[0_8px_40px_rgba(0,0,0,0.25)] backdrop-blur-xl"
-          : "bg-transparent"
-      }`}
+      className="fixed inset-x-0 top-0 z-50 px-3 pt-[calc(env(safe-area-inset-top)+0.65rem)] transition-all duration-500"
     >
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-8 lg:h-[4.25rem] lg:px-10">
+      <div className={`mx-auto flex h-16 max-w-6xl items-center justify-between rounded-md border px-4 shadow-[0_8px_40px_rgba(0,0,0,0.25)] backdrop-blur-xl transition-colors sm:px-6 ${scrolled || open ? "border-white/15 bg-canvas/90" : "border-white/10 bg-canvas/70"}`}>
         <Link
           href="/#home"
           className="inline-flex min-h-11 items-center"
@@ -70,11 +72,11 @@ export function Header() {
         </Link>
 
         <nav className="hidden items-center gap-6 lg:flex" aria-label="Primary">
-          {siteConfig.nav.slice(0, 6).map((item) => (
+          {primaryNav.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-muted transition-colors hover:text-ink"
+              className="text-xs font-medium text-ink-muted transition-colors hover:text-accent"
             >
               {item.label}
             </Link>
@@ -111,14 +113,14 @@ export function Header() {
       {open ? (
         <div
           id="mobile-nav"
-          className="fixed inset-x-0 bottom-0 top-[calc(4rem+env(safe-area-inset-top))] overflow-y-auto border-t border-line bg-canvas/98 backdrop-blur-xl lg:hidden"
+          className="fixed inset-x-0 bottom-0 top-[calc(4.7rem+env(safe-area-inset-top))] overflow-y-auto border-t border-line bg-canvas/98 backdrop-blur-xl lg:hidden"
         >
           <div className="flex min-h-full flex-col gap-1 px-5 py-4 pb-[max(1.5rem,env(safe-area-inset-bottom))] sm:px-8">
-            {siteConfig.nav.map((item) => (
+            {primaryNav.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="py-3.5 font-mono text-sm uppercase tracking-[0.14em] text-ink-muted hover:text-ink"
+                className="py-3.5 text-sm font-medium text-ink-muted hover:text-accent"
                 onClick={() => setOpen(false)}
               >
                 {item.label}

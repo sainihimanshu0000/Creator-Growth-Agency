@@ -2,10 +2,10 @@ export const siteConfig = {
   company: {
     name: "Collabind",
     legalName: "Collabind Growth Partners Pvt. Ltd.",
-    tagline: "Human-Insight Growth",
-    eyebrow: "Creator & Brand Growth Agency",
+    tagline: "The Ultimate Creator-Brand Bridge",
+    eyebrow: "Bringing Collabs to Creators. Promoting Big Brands to the World.",
     description:
-      "Strategy, managed execution, and transparent reporting for brands and creators across Gaming, Esports, Crypto, Sports, and Fintech.",
+      "Collabind links all kinds of brands with all kinds of digital creators — landing high-paying sponsorship deals in your lap while building dominant campaigns that scale market authority.",
     region: "India · Global",
     url: "https://collabind.com",
   },
@@ -38,245 +38,278 @@ export const siteConfig = {
   },
 
   contact: {
-    brandEmail: "brands@collabind.com",
-    creatorEmail: "creators@collabind.com",
-    generalEmail: "hello@collabind.com",
-    responseSla: "We respond within 1 business day.",
+    brandEmail: "partnerships@collabind.com",
+    creatorEmail: "partnerships@collabind.com",
+    generalEmail: "partnerships@collabind.com",
+    responseSla: "We respond within 24 hours.",
     formEndpoint: "/api/contact", // or Formspree URL; empty falls back to /api/contact
   },
 
   ctas: {
-    primary: "Book Strategy Call",
-    secondaryBrand: "View Brand Network",
-    secondaryServices: "Explore Services",
+    primary: "Connect With Collabind",
+    secondaryBrand: "Promote My Brand",
+    secondaryServices: "Bring Me Collabs",
   },
 
   nav: [
-    { label: "Home", href: "/#home" },
-    { label: "System", href: "/#story" },
-    { label: "Features", href: "/#features" },
-    { label: "Verticals", href: "/#verticals" },
-    { label: "Brands", href: "/#brands" },
-    { label: "Team", href: "/#team" },
-    { label: "Case Studies", href: "/case-studies" },
+    { label: "Get Paid Collabs", href: "/#creators" },
+    { label: "Promote My Brand", href: "/#brands" },
+    { label: "How It Works", href: "/#story" },
+    { label: "Roster Matrix", href: "/#verticals" },
+    { label: "Playbooks", href: "/#features" },
     { label: "Contact", href: "/#contact" },
   ],
 
-  verticals: ["Gaming", "Esports", "Crypto & Trading", "Sports", "Fintech"],
+  verticals: [
+    "Gaming",
+    "SaaS, Apps & Gear",
+    "Lifestyle",
+    "Consumer Tech",
+    "Finance & Business",
+    "Fitness & Wellness",
+    "Modern Work",
+  ],
 
   hero: {
-    headline: "Human-Insight Growth",
+    headline: "The Ultimate Creator-Brand Bridge",
     subcopy:
-      "We pair vertical specialists with managed creator execution so brand teams get commercial clarity, brand-safe delivery, and measurable outcomes—not vanity metrics.",
+      "Bringing Collabs to Creators. Promoting Big Brands to the World. Collabind links all kinds of brands with all kinds of digital creators — landing high-paying sponsorship deals in your lap while building dominant campaigns that scale market authority.",
   },
 
   stats: [
-    { label: "Creator Network", value: 2400, suffix: "+", prefix: "" },
-    { label: "Monthly Reach", value: 180, suffix: "M+", prefix: "" },
-    { label: "Campaigns Delivered", value: 420, suffix: "+", prefix: "" },
-    { label: "Peak ROAS", value: 8.4, suffix: "x", prefix: "" },
+    { label: "Vetted Creators", value: 120, suffix: "+", prefix: "" },
+    { label: "Brand Shortlists", value: 48, suffix: "hr", prefix: "" },
+    { label: "Elite Verticals", value: 6, suffix: "", prefix: "" },
+    { label: "Response Time", value: 24, suffix: "hr", prefix: "" },
+  ],
+
+  platforms: [
+    "Instagram Reels",
+    "YouTube Shorts",
+    "LinkedIn",
+    "X",
+    "YouTube Long-Form",
+    "Substack",
   ],
 
   pillars: [
     {
-      title: "Strategy",
+      title: "The Perfect Infrastructure",
       description:
-        "Commercial briefs translated into audience, creator, and creative systems built for conversion.",
+        "We cut out the DM spam, loose contracts, and late invoices so you can build.",
     },
     {
-      title: "Execution",
+      title: "One Platform. Shared Success.",
       description:
-        "End-to-end campaign ownership—from casting and contracting through live optimization.",
+        "We operate as the core pipeline infrastructure. Creators focus on production; brands focus on scaling conversion traffic.",
     },
     {
-      title: "Reporting",
+      title: "Any Niche. Any Brand Size.",
       description:
-        "Transparent performance cadence with clear attribution, learnings, and next-step actions.",
+        "Inbound deal drops and hyper-scale visibility across every vertical we activate.",
     },
-  ],
-
-  brands: [
-    "NovaPlay",
-    "Aether Trade",
-    "Pulse Sports",
-    "Ledgerly",
-    "ArenaX",
-    "Finora",
-    "Skyline FC",
-    "Bitward Capital",
-    "Velocity Esports",
-    "Crest Banking",
   ],
 
   approach: {
-    headline: "A structured growth operating model",
+    headline: "How It Works",
     subcopy:
-      "Three tightly owned stages—from vertical insight to live delivery to board-ready reporting.",
+      "One Platform. Shared Success. We operate as the core pipeline infrastructure.",
     steps: [
       {
         number: "01",
-        title: "Vertical Specialists",
+        title: "Inbound Deal Drops",
         description:
-          "Category leads who understand audience language, platform norms, and commercial risk in your vertical.",
+          "Creators get matched directly to vetted brand proposals without pitching manually.",
       },
       {
         number: "02",
-        title: "Managed Execution",
+        title: "Hyper-Scale Visibility",
         description:
-          "One operating owner for casting, creative, contracting, compliance, and day-to-day campaign control.",
+          "Brands find precise, bot-checked creators across multiple channels simultaneously.",
       },
       {
         number: "03",
-        title: "Transparent Reporting",
+        title: "Shared Success",
         description:
-          "Weekly visibility into delivery, performance, and optimization decisions—without spreadsheet archaeology.",
+          "Creators focus on production; brands focus on scaling conversion traffic.",
       },
     ],
   },
 
-  forBrands: {
-    headline: "What serious brands evaluate before signing an agency",
+  rosterMatrix: {
+    headline: "The Roster Matrix",
     subcopy:
-      "The diligence checklist that separates performance partners from content brokers.",
+      "All Kinds of Verticals. We balance campaigns across six elite sectors of modern digital culture.",
+    sectors: [
+      {
+        icon: "🎮",
+        title: "Gaming",
+        description:
+          "Live stream overlays, gameplay callouts, system integrations, and hardware showcases.",
+        tags: "DTC, Fashion & Beauty",
+      },
+      {
+        icon: "✨",
+        title: "Lifestyle",
+        description:
+          "Styling guides, daily vlogs, unboxings, and routine placements for DTC & fashion.",
+        tags: "DTC, Fashion & Beauty",
+      },
+      {
+        icon: "📱",
+        title: "Consumer Tech",
+        description:
+          "Product reviews, workflow walkthroughs, and setup tutorials for apps and SaaS.",
+        tags: "Apps, SaaS & Hardware",
+      },
+      {
+        icon: "📈",
+        title: "Finance & Business",
+        description:
+          "Case studies, founder breakdowns, and carousels that build high-ticket trust.",
+        tags: "Fintech, B2B & Courses",
+      },
+      {
+        icon: "💪",
+        title: "Fitness & Wellness",
+        description:
+          "Transformation journeys and authentic testimonials that build lasting habit.",
+        tags: "Nutrition & Subscriptions",
+      },
+      {
+        icon: "🧠",
+        title: "Modern Work",
+        description:
+          "Productivity workflows, thought leadership, and newsletter authority.",
+        tags: "B2B & Newsletters",
+      },
+    ],
+  },
+
+  playbooks: {
+    headline: "Playbooks",
+    subcopy: "Proven Frameworks for Measurable ROI.",
+    items: [
+      {
+        number: "Playbook 01",
+        title: "The Synchronized Product Launch",
+        objective:
+          "Feed saturation and immediate algorithm momentum.",
+        execution:
+          "10–15 vetted creators posting within a 72-hour window.",
+        coreAssets:
+          "Coordinated short-form video paired with discount codes.",
+      },
+      {
+        number: "Playbook 02",
+        title: "The Authority Funnel",
+        objective:
+          "Complex product education and long-term brand equity.",
+        execution:
+          "Deep integrations with trusted niche specialists.",
+        coreAssets:
+          "YouTube segments, podcast reads, and breakdowns.",
+      },
+      {
+        number: "Playbook 03",
+        title: "The Paid UGC Performance Engine",
+        objective:
+          "Continuous creative testing for paid social advertising.",
+        execution:
+          "Ongoing sourcing of creator-led reviews and skits.",
+        coreAssets:
+          "Raw and polished video with 30–90 day whitelisting.",
+      },
+    ],
+  },
+
+  qualityStandards: {
+    headline: "Quality Standards",
+    subcopy: "Zero Friction. Zero Fluff.",
     points: [
       {
-        title: "Commercial Clarity",
+        icon: "🛡️",
+        title: "Zero Artificial Reach",
         description:
-          "Defined KPIs, budget architecture, and success thresholds before a single creator is briefed.",
+          "Strict screening against fake followers, pods, and bought traffic.",
       },
       {
-        title: "Execution Ownership",
+        icon: "📄",
+        title: "Transparent Licensing",
         description:
-          "A named operating lead accountable for timelines, quality, and live-campaign decisions.",
+          "Clean contracts covering post longevity and paid ad permissions.",
       },
       {
-        title: "Creator Quality Framework",
+        icon: "⏱️",
+        title: "Strict Milestones",
         description:
-          "Audience authenticity, brand fit, and conversion signals scored—not follower counts alone.",
-      },
-      {
-        title: "Compliance + Brand Safety",
-        description:
-          "Disclosure, platform policy, and category restrictions built into casting and creative review.",
-      },
-      {
-        title: "Performance Reporting",
-        description:
-          "Attribution-ready reporting that maps spend to reach, engagement quality, and commercial outcomes.",
-      },
-      {
-        title: "Optimization Cadence",
-        description:
-          "Structured mid-flight reviews so underperforming units are cut and winners are scaled.",
+          "Defined timelines for briefs, scripts, drafts, and publishing.",
       },
     ],
   },
 
   creators: {
-    headline: "Built for creators who want brand work that converts",
+    headline: "Bring Me Collabs",
     narrative:
-      "We place creators into structured pods with clear briefs, creative direction, and performance ops—so collaborations protect your audience and grow your commercial value.",
+      "Stop negotiating lowball offers and waiting months for invoices. We connect you directly with brands aligned with your content style.",
     bullets: [
-      "Audience quality and conversion fit over raw reach",
-      "Clear briefs, fair commercial terms, and timely payouts",
-      "Creative support without diluting your voice",
-      "Compliance guidance that keeps partnerships brand-safe",
+      "Transparent payment terms & clear dates",
+      "Structured briefs with agreed boundaries",
+      "Recurring brand sponsorship opportunities",
     ],
     features: [
       {
-        title: "Creator Pods",
+        title: "Inbound Deal Drops",
         description:
-          "Curated clusters matched to vertical, audience intent, and campaign objectives.",
+          "Creators get matched directly to vetted brand proposals without pitching manually.",
       },
       {
-        title: "Creative Strategy",
+        title: "Transparent Payments",
         description:
-          "Hooks, formats, and messaging frameworks designed for platform-native performance.",
+          "Transparent payment terms & clear dates.",
       },
       {
-        title: "Performance Ops",
+        title: "Structured Briefs",
         description:
-          "Live tracking, iteration loops, and clear feedback so every drop improves.",
+          "Structured briefs with agreed boundaries.",
       },
       {
-        title: "Brand & Policy Safety",
+        title: "Recurring Sponsorships",
         description:
-          "Disclosure, category rules, and brand guidelines handled before content goes live.",
+          "Recurring brand sponsorship opportunities.",
       },
     ],
+    cta: "Apply to Join Roster",
   },
 
-  team: [
-    {
-      name: "Aisha Rahman",
-      title: "Managing Partner",
-      role: "Leadership",
-      bio: "Former brand growth lead focused on measurable creator commerce across India and APAC.",
-      initials: "AR",
-    },
-    {
-      name: "Dev Patel",
-      title: "Head of Brand Partnerships",
-      role: "Brands",
-      bio: "Owns commercial strategy and enterprise relationships for performance-led campaigns.",
-      initials: "DP",
-    },
-    {
-      name: "Maya Chen",
-      title: "Head of Creator Network",
-      role: "Creators",
-      bio: "Builds and qualifies creator pods with audience authenticity and conversion fit.",
-      initials: "MC",
-    },
-    {
-      name: "Rohan Mehta",
-      title: "Director of Performance",
-      role: "Ops",
-      bio: "Runs reporting systems, attribution frameworks, and mid-flight optimization cadence.",
-      initials: "RM",
-    },
-  ],
-
-  insights: [
-    {
-      title: "Why follower counts misprice creator value",
-      line: "A framework for scoring audience intent, authenticity, and conversion propensity.",
-      href: "/#contact",
-    },
-    {
-      title: "Brand safety without killing creative velocity",
-      line: "How category rules and disclosure can live inside the production workflow.",
-      href: "/#contact",
-    },
-    {
-      title: "Reporting that CFOs actually trust",
-      line: "From vanity dashboards to commercial narrative with clear next actions.",
-      href: "/#contact",
-    },
-  ],
-
-  services: [
-    {
-      slug: "influencer-marketing-agency",
-      title: "Influencer Marketing Agency",
-      line: "Full-funnel influencer programs with casting, compliance, and performance ownership.",
-    },
-    {
-      slug: "creator-marketing-agency",
-      title: "Creator Marketing Agency",
-      line: "Creator-led growth systems built for audience quality and commercial outcomes.",
-    },
-    {
-      slug: "brand-deals-agency",
-      title: "Brand Deals Agency",
-      line: "Structured brand–creator dealmaking with clear terms, delivery, and reporting.",
-    },
-  ],
+  forBrands: {
+    headline: "Promote My Brand",
+    subcopy:
+      "Eliminate the burden of scouting, negotiating, and chasing deadlines. We deliver handpicked creators, secure rights, and track performance.",
+    points: [
+      {
+        title: "Custom creator shortlist within 48 hours",
+        description:
+          "Custom creator shortlist within 48 hours.",
+      },
+      {
+        title: "Turnkey contracts, rights & payments managed",
+        description:
+          "Turnkey contracts, rights & payments managed.",
+      },
+      {
+        title: "Real-time tracking & post-campaign analytics",
+        description:
+          "Real-time tracking & post-campaign analytics.",
+      },
+    ],
+    cta: "Request a Brand Shortlist",
+  },
 
   contactSection: {
-    headline: "Start with a strategy conversation",
+    headline: "Ready to Run Your Next Creator Campaign?",
     subcopy:
-      "Tell us whether you are a brand team or a creator. We route every inquiry to the right specialist.",
+      "Send us your campaign goals or creator media kit, and our team will get back to you within 24 hours.",
     nextSteps: [
       "We review fit against vertical expertise and current capacity.",
       "A specialist responds with clarifying questions or a call invite.",
@@ -286,57 +319,32 @@ export const siteConfig = {
 
   industries: [
     "Gaming",
-    "Esports",
-    "Crypto & Trading",
-    "Sports",
-    "Fintech",
+    "Lifestyle",
     "Consumer Tech",
+    "Finance & Business",
+    "Fitness & Wellness",
+    "Modern Work",
     "Other",
   ],
 
-  platforms: ["YouTube", "Instagram", "TikTok", "Twitch", "Multi-platform"],
-
   footer: {
     columns: {
-      Verticals: ["Gaming", "Esports", "Crypto & Trading", "Sports", "Fintech"],
-      Company: [
-        { label: "Approach", href: "/#approach" },
-        { label: "Team", href: "/#team" },
-        { label: "Case Studies", href: "/case-studies" },
-        { label: "Contact", href: "/#contact" },
-      ],
-      Programs: [
+      Solutions: [
         { label: "For Brands", href: "/#brands" },
         { label: "For Creators", href: "/#creators" },
-        { label: "Services", href: "/#services" },
-        { label: "Insights", href: "/#insights" },
+        { label: "Campaign Models", href: "/#features" },
+        { label: "Creator Niches", href: "/#verticals" },
       ],
-      Governance: [{ label: "Privacy Policy", href: "/privacy" }],
+      Company: [
+        { label: "The Bridge", href: "/#story" },
+        { label: "Privacy Policy", href: "/privacy" },
+        { label: "Terms of Service", href: "/terms" },
+        { label: "Contact Support", href: "/#contact" },
+      ],
     },
+    copyright: "© 2026 Collabind. All rights reserved.",
+    tagline: "Zero Friction · Zero Fluff",
   },
-
-  caseStudies: [
-    {
-      title: "Esports title launch — India",
-      vertical: "Esports",
-      outcome: "3.2x engagement quality vs. prior agency benchmark",
-    },
-    {
-      title: "Fintech app install campaign",
-      vertical: "Fintech",
-      outcome: "Lower CPA across three creator cohorts in 6 weeks",
-    },
-    {
-      title: "Crypto education series",
-      vertical: "Crypto & Trading",
-      outcome: "Compliant creator network with board-ready reporting",
-    },
-    {
-      title: "Sports apparel drop",
-      vertical: "Sports",
-      outcome: "Sold-through hero SKU in primary launch window",
-    },
-  ],
 } as const;
 
 export type SiteConfig = typeof siteConfig;
