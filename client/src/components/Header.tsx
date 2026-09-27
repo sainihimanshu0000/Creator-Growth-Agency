@@ -6,6 +6,7 @@ import { siteConfig } from "@/config/siteConfig";
 import { Button } from "@/components/ui/Button";
 import { BrandLogo } from "@/components/ui/BrandLogo";
 import { gsap, registerGsap, usePrefersReducedMotion } from "@/lib/motion";
+
 const primaryNav = [
   { label: "The Bridge", href: "/#approach" },
   { label: "Creator Niches", href: "/#verticals" },
@@ -57,83 +58,104 @@ export function Header() {
   }, [reduced]);
 
   return (
-    <header
-      ref={headerRef}
-      className="fixed inset-x-0 top-0 z-50 px-3 pt-[calc(env(safe-area-inset-top)+0.65rem)] transition-all duration-500"
-    >
-      <div className={`mx-auto flex h-16 max-w-6xl items-center justify-between rounded-md border px-4 shadow-[0_8px_40px_rgba(0,0,0,0.25)] backdrop-blur-xl transition-colors sm:px-6 ${scrolled || open ? "border-white/15 bg-canvas/90" : "border-white/10 bg-canvas/70"}`}>
-        <Link
-          href="/#home"
-          className="inline-flex min-h-11 items-center"
-          onClick={() => setOpen(false)}
-          aria-label={siteConfig.company.name}
-        >
-          <BrandLogo variant="wordmark" priority className="h-7 sm:h-8" />
-        </Link>
-
-        <nav className="hidden items-center gap-6 lg:flex" aria-label="Primary">
-          {primaryNav.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="text-xs font-medium text-ink-muted transition-colors hover:text-accent"
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-
-        <div className="hidden lg:block">
-          <Button href="/#contact" size="sm">
-            {siteConfig.ctas.primary}
-          </Button>
-        </div>
-
-        <button
-          ref={menuButtonRef}
-          type="button"
-          className="inline-flex h-11 w-11 items-center justify-center text-ink lg:hidden"
-          aria-expanded={open}
-          aria-controls="mobile-nav"
-          aria-label={open ? "Close menu" : "Open menu"}
-          onClick={() => setOpen((v) => !v)}
-        >
-          <span className="flex flex-col gap-1.5">
-            <span
-              className={`block h-px w-5 bg-current transition ${open ? "translate-y-[3.5px] rotate-45" : ""}`}
-            />
-            <span className={`block h-px w-5 bg-current transition ${open ? "opacity-0" : ""}`} />
-            <span
-              className={`block h-px w-5 bg-current transition ${open ? "-translate-y-[3.5px] -rotate-45" : ""}`}
-            />
-          </span>
-        </button>
-      </div>
-
-      {open ? (
+    <>
+      <header
+        ref={headerRef}
+        className="fixed inset-x-0 top-0 z-50 px-3 pt-[calc(env(safe-area-inset-top)+0.65rem)] transition-all duration-500"
+      >
         <div
-          id="mobile-nav"
-          className="fixed inset-x-0 bottom-0 top-[calc(4.7rem+env(safe-area-inset-top))] overflow-y-auto border-t border-line bg-canvas/98 backdrop-blur-xl lg:hidden"
+          className={`mx-auto flex h-16 max-w-6xl items-center justify-between rounded-md border px-4 shadow-[0_8px_40px_rgba(0,0,0,0.25)] backdrop-blur-xl transition-colors sm:px-6 ${
+            scrolled || open
+              ? "border-white/15 bg-canvas/90"
+              : "border-white/10 bg-canvas/70"
+          }`}
         >
-          <div className="flex min-h-full flex-col gap-1 px-5 py-4 pb-[max(1.5rem,env(safe-area-inset-bottom))] sm:px-8">
+          <Link
+            href="/#home"
+            className="inline-flex min-h-11 items-center"
+            onClick={() => setOpen(false)}
+            aria-label={siteConfig.company.name}
+          >
+            <BrandLogo variant="wordmark" priority className="h-7 sm:h-8" />
+          </Link>
+
+          <nav className="hidden items-center gap-6 lg:flex" aria-label="Primary">
             {primaryNav.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="py-3.5 text-sm font-medium text-ink-muted hover:text-accent"
+                className="text-xs font-medium text-ink-muted transition-colors hover:text-accent"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+
+          <div className="hidden lg:block">
+            <Button href="/#contact" size="sm">
+              {siteConfig.ctas.primary}
+            </Button>
+          </div>
+
+          <button
+            ref={menuButtonRef}
+            type="button"
+            className="inline-flex h-11 w-11 items-center justify-center text-ink lg:hidden"
+            aria-expanded={open}
+            aria-controls="mobile-nav"
+            aria-label={open ? "Close menu" : "Open menu"}
+            onClick={() => setOpen((v) => !v)}
+          >
+            <span className="flex flex-col gap-1.5">
+              <span
+                className={`block h-px w-5 bg-current transition ${
+                  open ? "translate-y-[3.5px] rotate-45" : ""
+                }`}
+              />
+              <span
+                className={`block h-px w-5 bg-current transition ${
+                  open ? "opacity-0" : ""
+                }`}
+              />
+              <span
+                className={`block h-px w-5 bg-current transition ${
+                  open ? "-translate-y-[3.5px] -rotate-45" : ""
+                }`}
+              />
+            </span>
+          </button>
+        </div>
+      </header>
+
+      {/* Mobile menu — header ke BAHAR, apna z-index */}
+      {open ? (
+        <div
+          id="mobile-nav"
+          className="fixed inset-0 z-40 flex flex-col bg-canvas pt-[calc(5rem+env(safe-area-inset-top))] lg:hidden"
+        >
+          <div className="flex min-h-full flex-col gap-1 overflow-y-auto px-5 py-4 pb-[max(1.5rem,env(safe-area-inset-bottom))] sm:px-8">
+            {primaryNav.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="py-3.5 text-base font-medium text-ink hover:text-accent"
                 onClick={() => setOpen(false)}
               >
                 {item.label}
               </Link>
             ))}
             <div className="pt-3">
-              <Button href="/#contact" className="w-full" onClick={() => setOpen(false)}>
+              <Button
+                href="/#contact"
+                className="w-full"
+                onClick={() => setOpen(false)}
+              >
                 {siteConfig.ctas.primary}
               </Button>
             </div>
           </div>
         </div>
       ) : null}
-    </header>
+    </>
   );
 }
