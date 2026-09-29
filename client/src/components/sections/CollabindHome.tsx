@@ -2,148 +2,345 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { siteConfig } from "@/config/siteConfig";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 
-interface Creator {
+export interface Creator {
   id: string;
   name: string;
-  channel: string;
-  category: string;
-  audience: string;
+  handle: string;
+  subscribers?: string;
+  followers?: string;
+  platform?: "youtube" | "kick" | "instagram";
+  url: string;
   avatar: string;
-  description: string;
-  link: string;
+  initials: string;
+  tone: string;
+  category?: string;
 }
 
-const rosterRow1: Creator[] = [
+const creators: Creator[] = [
   {
-    id: "c1",
-    name: "Marques Brownlee",
-    channel: "@mkbhd",
-    category: "Consumer Tech",
-    audience: "18.5M",
-    avatar: "MB",
-    description: "Top tech reviewer covering smartphones, EVs, gadget innovations, and deep consumer tech teardowns.",
-    link: "https://youtube.com/@mkbhd",
+    id: "ziya-gaming", name: "Ziya Gaming", handle: "@ziyagaming", subscribers: "6.35M",
+    url: "https://www.youtube.com/@ziyagaming",
+    avatar: "https://yt3.ggpht.com/ZyoJn3HEwuq2soLYlcbzhV2H0kKu67bqrdRAPbSQ_SM9WfkBnHO4UmPzcfcbW7rTjl3cHJBV=s176-c-k-c0x00ffffff-no-rj-mo",
+    initials: "ZG", tone: "linear-gradient(140deg, #6247AA, #28B8C4)",
   },
   {
-    id: "c2",
-    name: "PewDiePie",
-    channel: "@pewdiepie",
-    category: "Gaming",
-    audience: "111M",
-    avatar: "PD",
-    description: "Legendary gaming & digital entertainment icon with global reach across gaming, commentary, and culture.",
-    link: "https://youtube.com/@pewdiepie",
+    id: "pri-gaming", name: "Pri Gaming", handle: "@PriGaming", subscribers: "1.96M",
+    url: "https://www.youtube.com/@PriGaming",
+    avatar: "https://yt3.ggpht.com/zeajWwIL58X8jGC305luZgiAzrpzKJOJIkAibiMcw3faZibh0uXLqtqpvmMnp7ofN5T4bYvs=s176-c-k-c0x00ffffff-no-rj-mo",
+    initials: "PG", tone: "linear-gradient(140deg, #9E4567, #E59B6D)",
   },
   {
-    id: "c3",
-    name: "Sara Dietschy",
-    channel: "@saradietschy",
-    category: "Modern Work",
-    audience: "920K",
-    avatar: "SD",
-    description: "Creative entrepreneur and tech creator exploring productivity, creative gear, podcasting, and startups.",
-    link: "https://youtube.com/@saradietschy",
+    id: "tagaru-gaming", name: "Tagaru Gaming", handle: "@tagarugaming", subscribers: "703K",
+    url: "https://www.youtube.com/@tagarugaming",
+    avatar: "https://yt3.ggpht.com/5G3skJy5wHmp1urukJpKkriXhW1B2KPJYGkQ0FgJxG6jQUZoRSmarFdaVDnfsmnQjjq4rfcg=s176-c-k-c0x00ffffff-no-rj-mo",
+    initials: "TG", tone: "linear-gradient(140deg, #8E614C, #D1A17D)",
   },
   {
-    id: "c4",
-    name: "Ali Abdaal",
-    channel: "@aliabdaal",
-    category: "Modern Work",
-    audience: "5.2M",
-    avatar: "AA",
-    description: "Productivity expert, author, and doctor sharing workflows, business systems, and personal growth.",
-    link: "https://youtube.com/@aliabdaal",
+    id: "nonstop-gaming", name: "Nonstop Gaming", handle: "@NonstopGaming_", subscribers: "3.82M",
+    url: "https://www.youtube.com/@NonstopGaming_",
+    avatar: "https://yt3.ggpht.com/VxKxYUuY-Rw-gvKLyK6MIYfdxxDgdJpU1MO7Q-5pA14YyqkxiTdAWOAjoZeFVl3wyvbt4y59QIo=s176-c-k-c0x00ffffff-no-rj-mo",
+    initials: "NG", tone: "linear-gradient(140deg, #445B5B, #94A28D)",
+  },
+  {
+    id: "fire-eyes-gaming", name: "FireEyes Gaming", handle: "@FireEyesGaming", subscribers: "5.4M",
+    url: "https://www.youtube.com/@FireEyesGaming",
+    avatar: "https://yt3.ggpht.com/JmbYgqlNq1f-0D8qheQoGXiv-nWdie3XEwr1TydJHLeyZaOt-jKsQCdwmwCIMiwIdHMAULphS2A=s176-c-k-c0x00ffffff-no-rj-mo",
+    initials: "FE", tone: "linear-gradient(140deg, #80536B, #D29E9A)",
+  },
+  {
+    id: "smooth-sneaky", name: "SMOOTH & SNEAKY", handle: "@smoothsneaky6998", subscribers: "927K",
+    url: "https://www.youtube.com/@smoothsneaky6998",
+    avatar: "https://yt3.googleusercontent.com/ytc/AIdro_kYLAearTfTUA-5_G7gWpIIrJKtr8zH9PTYv8XB1x8LryA=s176-c-k-c0x00ffffff-no-rj-mo",
+    initials: "SS", tone: "linear-gradient(140deg, #775B3C, #C7A96D)",
+  },
+  {
+    id: "tufan-ff", name: "TUFAN FF", handle: "@TUFANFF99", subscribers: "878K",
+    url: "https://www.youtube.com/@TUFANFF99",
+    avatar: "https://yt3.ggpht.com/u3F8pU_w5Wfy0V9BFvYvoTDaf6c1IJxHVaZdj2eNA7jWXUa4-KE8eON6hcCEuEdf0-7NoGkK=s176-c-k-c0x00ffffff-no-rj-mo",
+    initials: "TF", tone: "linear-gradient(140deg, #4B695C, #9CAD82)",
+  },
+  {
+    id: "tufan-live", name: "TUFAN LIVE", handle: "@tufanlive7620", subscribers: "269K",
+    url: "https://www.youtube.com/@tufanlive7620",
+    avatar: "https://yt3.ggpht.com/vvop6f1iXCBbPjkPMZf2vt0n7bkbjijpUHfNZkPzLYnD4MdYiFBopcVNzAb_8C1XVXxe2D81zw=s176-c-k-c0x00ffffff-no-rj-mo",
+    initials: "TL", tone: "linear-gradient(140deg, #49566D, #9EA7B6)",
+  },
+  {
+    id: "decor-gaming", name: "DecoR Gaming", handle: "@DecoRGaming", subscribers: "12.4M",
+    url: "https://www.youtube.com/@DecoRGaming",
+    avatar: "https://yt3.ggpht.com/bYHq8npzY8QW2qryaQowPJaEhseCwScRYiOrZE-8soeBu4SBkBnvRdnHCsliBoBOx_bn2r90YNw=s176-c-k-c0x00ffffff-no-rj-mo",
+    initials: "DR", tone: "linear-gradient(140deg, #47695D, #A3B28B)",
+  },
+  {
+    id: "monty-bhai", name: "Monty Bhai", handle: "@montybhaiff", subscribers: "4.07M",
+    url: "https://www.youtube.com/@montybhaiff",
+    avatar: "https://yt3.ggpht.com/p30PIAfPjF2UPA8QE4_q31Gc_0DZMG2yv2sL3w1WtJUdK1N98uXIv_xabjsGeki36De03p5h9h4=s176-c-k-c0x00ffffff-no-rj-mo",
+    initials: "MB", tone: "linear-gradient(140deg, #456678, #98B5AA)",
+  },
+  {
+    id: "ng-angry", name: "NG ANGRY", handle: "@NG_ANGRY", subscribers: "216K",
+    url: "https://www.youtube.com/@NG_ANGRY",
+    avatar: "https://yt3.ggpht.com/XDAAatx8kNIHr9--xXz3drGoSIdIEFgx5tvPs3fnYJXo3WU15vDbjJATFSoJrzEzHGCEVzm6=s176-c-k-c0x00ffffff-no-rj-mo",
+    initials: "NA", tone: "linear-gradient(140deg, #735744, #C6946D)",
+  },
+  {
+    id: "ng-madmax", name: "NG MADMAX", handle: "@NG_MADMAX9", subscribers: "76.9K",
+    url: "https://www.youtube.com/@NG_MADMAX9",
+    avatar: "https://yt3.ggpht.com/C21iT_F4G_8lXJN038XZAovd48ZbZKJOty74geDPSlDZJ8-udm6u9Njod7TtIiei7tneGAv75g=s176-c-k-c0x00ffffff-no-rj-mo",
+    initials: "NM", tone: "linear-gradient(140deg, #655774, #AFA1B6)",
+  },
+  {
+    id: "c5t-arjun", name: "C5T Arjun YT", handle: "@C5T-ARJUN", subscribers: "1.34M",
+    url: "https://www.youtube.com/@C5T-ARJUN",
+    avatar: "https://yt3.ggpht.com/dBjpGww-uSQo4OJLhLuCnpwxTadKC7Tx8swFmTtyb4WCZNmUhNMBNfqsiZSY5ksm0XEF9P2gpw=s176-c-k-c0x00ffffff-no-rj-mo",
+    initials: "C5", tone: "linear-gradient(140deg, #7C5F59, #C5A18D)",
+  },
+  {
+    id: "prashant-gamer", name: "Prashant Gamer", handle: "@PrashantGamer08", subscribers: "1.9M",
+    url: "https://www.youtube.com/@PrashantGamer08",
+    avatar: "https://yt3.ggpht.com/kuahXBRCwaS1IH-X04dzenigIRIg2uf5BzLuKWEZUAwZYHpyPDpIYXHv1viPHovPCj0m5Bup=s176-c-k-c0x00ffffff-no-rj-mo",
+    initials: "PG", tone: "linear-gradient(140deg, #3D5D4D, #94A17C)",
+  },
+  {
+    id: "ng-esports", name: "NG Esports", handle: "@NGESPORTS", subscribers: "297K",
+    url: "https://www.youtube.com/@NGESPORTS",
+    avatar: "https://yt3.googleusercontent.com/RUEDDxQifTxAH55ppMTOtWtflcVTcNj_lxN8uALZhJe-ENphvZ360DkI1rUSovtJYCMVkdipCQ=s176-c-k-c0x00ffffff-no-rj-mo",
+    initials: "NG", tone: "linear-gradient(140deg, #414C65, #8CA6C7)",
+  },
+  {
+    id: "blackshout-ff", name: "BlackShout FF", handle: "@BlackShoutFF", subscribers: "362K",
+    url: "https://www.youtube.com/@BlackShoutFF",
+    avatar: "https://yt3.googleusercontent.com/jux2B-E6rK8QNFed0b8IqVVEjUF4DpMMrLTaexJ80F3k1tveBjcUQ2KyplR_TwAn_9g52Dz-=s176-c-k-c0x00ffffff-no-rj-mo",
+    initials: "BS", tone: "linear-gradient(140deg, #4C4141, #C97945)",
+  },
+  {
+    id: "nonstop-ff", name: "Nonstop FF", handle: "@Nonstopff", subscribers: "647K",
+    url: "https://www.youtube.com/@Nonstopff",
+    avatar: "https://yt3.googleusercontent.com/ytc/AIdro_keRNiVo4Bsgl5iSCrfYhEV_IfEaVLziLNWtgasebdpmfI=s176-c-k-c0x00ffffff-no-rj-mo",
+    initials: "NF", tone: "linear-gradient(140deg, #3F5D54, #95B395)",
+  },
+  {
+    id: "jackson-gaming", name: "Jackson Gaming", handle: "@JacksonGamingFF", subscribers: "5.82M",
+    url: "https://www.youtube.com/@JacksonGamingFF",
+    avatar: "https://yt3.googleusercontent.com/ytc/AIdro_lM3D01ryXZ08VGjHJM07Pjjb9Cbzzc5sDswRFfqInJYA=s176-c-k-c0x00ffffff-no-rj-mo",
+    initials: "JG", tone: "linear-gradient(140deg, #51466D, #A58CC8)",
+  },
+  {
+    id: "notaxid-yt", name: "NOTAXID YT", handle: "@notaxidyt", subscribers: "282K",
+    url: "https://www.youtube.com/@notaxidyt",
+    avatar: "https://yt3.ggpht.com/HFwdwWFr8J-OCZH2BHFfRdGmVIIxuacB47Z0dBmY_j7nWTz2Q9poctl1Fuj9ePvwuBwxO8hP9w=s176-c-k-c0x00ffffff-no-rj-mo",
+    initials: "NY", tone: "linear-gradient(140deg, #3D5968, #83B4C4)",
+  },
+  {
+    id: "max-playz", name: "MAX PLAYZ", handle: "@MaxPlayz69", subscribers: "111K",
+    url: "https://www.youtube.com/@MaxPlayz69",
+    avatar: "https://yt3.ggpht.com/ZJXWxZju9SdpI4wwX5F1M9woAuzhQ-aR9ww6YIRkxjcp6mXyxgnW0HYf3MNrOoJ-Q3T5jokOfQ=s176-c-k-c0x00ffffff-no-rj-mo",
+    initials: "MP", tone: "linear-gradient(140deg, #654D3B, #C89A65)",
+  },
+  {
+    id: "sunshine-gaming", name: "SUNSHINE GAMING", handle: "@SUNSHINEGAMING000", subscribers: "412K",
+    url: "https://www.youtube.com/@SUNSHINEGAMING000",
+    avatar: "https://yt3.ggpht.com/-greNo7OqKFiGocR-rtO_3_8WUDpV-0nWN2oeJDQcXzgBl7XJa1MEwRkWovp8rB9_IlT7sqP16o=s176-c-k-c0x00ffffff-no-rj-mo",
+    initials: "SG", tone: "linear-gradient(140deg, #80603C, #E0B65E)",
+  },
+  {
+    id: "m4x-ff", name: "M4X FF", handle: "@MaxFF69", subscribers: "496K",
+    url: "https://www.youtube.com/@MaxFF69",
+    avatar: "https://yt3.ggpht.com/NyjijZNgkyjrp5_ZHw2xbnwfEBb1kzb34jVhHBg0pDZOZ36upX2bXGsdt961L-cBCYoiV0pw=s176-c-k-c0x00ffffff-no-rj-mo",
+    initials: "M4", tone: "linear-gradient(140deg, #475B70, #8CA7CE)",
+  },
+  {
+    id: "rose-live", name: "ROSE LIVE", handle: "@rosegaming012", subscribers: "285K",
+    url: "https://www.youtube.com/@rosegaming012",
+    avatar: "https://yt3.ggpht.com/DbEM0-12_FJbnAevgYSs-Io5WJr2jx_HqDCVz6PnK_jVEp_i0m2liCsZLZn2lwwVQj5n3lXcmw=s176-c-k-c0x00ffffff-no-rj-mo",
+    initials: "RL", tone: "linear-gradient(140deg, #80465D, #D28A9E)",
+  },
+  {
+    id: "ng-abhishek", name: "NG ABHISHEK", handle: "@ngabhishek", subscribers: "183K",
+    url: "https://www.youtube.com/@ngabhishek",
+    avatar: "https://yt3.ggpht.com/kh50ovjdbDjcnC3AwKG2JzsKoZ7BsW2vW8KuVPw03HyVVPcKNYSmCr8S714nOj6FQ1WbwEjY=s176-c-k-c0x00ffffff-no-rj-mo",
+    initials: "NA", tone: "linear-gradient(140deg, #4E624C, #9EBD7A)",
+  },
+  {
+    id: "boss-army", name: "BOSS ARMY", handle: "@BossArmy", subscribers: "1.62M",
+    url: "https://www.youtube.com/@BossArmy",
+    avatar: "https://yt3.ggpht.com/OEtbK6_ZLQffmlClFALKY2UNde6k_stAzX41srO5jZO4M8w64s8TTvylBWZOe61MtzY5BIKx0A=s176-c-k-c0x00ffffff-no-rj-mo",
+    initials: "BA", tone: "linear-gradient(140deg, #644949, #BC8870)",
+  },
+  {
+    id: "nonstopgaming-kick", name: "Nonstop Gaming", handle: "@nonstopgaming", followers: "93.8K",
+    platform: "kick", url: "https://kick.com/nonstopgaming",
+    avatar: "https://files.kick.com/images/user/28177882/profile_image/conversion/3a25c8b8-8fea-4db7-b205-869654600cd5-fullsize.webp",
+    initials: "NG", tone: "linear-gradient(140deg, #445B5B, #94A28D)",
+  },
+  {
+    id: "boss-army-ff-kick", name: "BOSS ARMY FF", handle: "@bossarmyff", followers: "11.9K",
+    platform: "kick", url: "https://kick.com/bossarmyff",
+    avatar: "https://files.kick.com/images/user/107878986/profile_image/conversion/0a7acc51-eeca-49ed-932a-3bffd7d15045-fullsize.webp",
+    initials: "BA", tone: "linear-gradient(140deg, #644949, #BC8870)",
+  },
+  {
+    id: "fireeyes-instagram", name: "FireEyes Gaming", handle: "@fireeyes_official", followers: "239K",
+    platform: "instagram", url: "https://www.instagram.com/fireeyes_official/",
+    avatar: "/brand/logo-mark-on-dark.png",
+    initials: "FE", tone: "linear-gradient(140deg, #80536B, #D29E9A)",
+  },
+  {
+    id: "smooth-sneaky-instagram", name: "SMOOTH & SNEAKY", handle: "@smooth_and_sneaky", followers: "106K",
+    platform: "instagram", url: "https://www.instagram.com/smooth_and_sneaky/",
+    avatar: "/brand/logo-mark-on-dark.png",
+    initials: "SS", tone: "linear-gradient(140deg, #775B3C, #C7A96D)",
+  },
+  {
+    id: "tufan-ff-instagram", name: "TUFAN FF", handle: "@tufan_ff", followers: "29.9K",
+    platform: "instagram", url: "https://www.instagram.com/tufan_ff/",
+    avatar: "/brand/logo-mark-on-dark.png",
+    initials: "TF", tone: "linear-gradient(140deg, #4B695C, #9CAD82)",
+  },
+  {
+    id: "rose-live-instagram", name: "ROSE LIVE", handle: "@roselive02", followers: "31.8K",
+    platform: "instagram", url: "https://www.instagram.com/roselive02/",
+    avatar: "/brand/logo-mark-on-dark.png",
+    initials: "RL", tone: "linear-gradient(140deg, #80465D, #D28A9E)",
+  },
+  {
+    id: "prashant-prakash-instagram", name: "Prashant Prakash", handle: "@prashantplays_", followers: "23.3K",
+    platform: "instagram", url: "https://www.instagram.com/prashantplays_/",
+    avatar: "/brand/logo-mark-on-dark.png",
+    initials: "PP", tone: "linear-gradient(140deg, #3D5D4D, #94A17C)",
+  },
+  {
+    id: "priyank-patel-instagram", name: "Priyank Patel", handle: "@pri_gamingyt", followers: "109K",
+    platform: "instagram", url: "https://www.instagram.com/pri_gamingyt/",
+    avatar: "/brand/logo-mark-on-dark.png",
+    initials: "PP", tone: "linear-gradient(140deg, #9E4567, #E59B6D)",
+  },
+  {
+    id: "ng-esports-instagram", name: "NG E-SPORTS", handle: "@ng.esports_ff", followers: "16.3K",
+    platform: "instagram", url: "https://www.instagram.com/ng.esports_ff/",
+    avatar: "/brand/logo-mark-on-dark.png",
+    initials: "NG", tone: "linear-gradient(140deg, #414C65, #8CA6C7)",
+  },
+  {
+    id: "nonstopgaming-325-instagram", name: "Shivam Rathi", handle: "@nonstopgaming_325", followers: "196K",
+    platform: "instagram", url: "https://www.instagram.com/nonstopgaming_325/",
+    avatar: "/brand/logo-mark-on-dark.png",
+    initials: "SR", tone: "linear-gradient(140deg, #445B5B, #94A28D)",
+  },
+  {
+    id: "joel-jazz-instagram", name: "Joel Jazz", handle: "@joeljazzofficial", followers: "10.2K",
+    platform: "instagram", url: "https://www.instagram.com/joeljazzofficial/",
+    avatar: "/brand/logo-mark-on-dark.png",
+    initials: "JJ", tone: "linear-gradient(140deg, #6247AA, #D66B9A)",
   },
 ];
 
-const rosterRow2: Creator[] = [
-  {
-    id: "c5",
-    name: "MrBeast",
-    channel: "@mrbeast",
-    category: "Entertainment",
-    audience: "315M",
-    avatar: "MB",
-    description: "Massive scale stunts, viral challenges, and philanthropic initiatives reaching hundreds of millions worldwide.",
-    link: "https://youtube.com/@mrbeast",
-  },
-  {
-    id: "c6",
-    name: "Austin Evans",
-    channel: "@austinevans",
-    category: "Consumer Tech",
-    audience: "5.4M",
-    avatar: "AE",
-    description: "High-energy tech showcases, PC builds, mystery boxes, and mobile hardware reviews.",
-    link: "https://youtube.com/@austinevans",
-  },
-  {
-    id: "c7",
-    name: "Graham Stephan",
-    channel: "@grahamstephan",
-    category: "Finance",
-    audience: "4.6M",
-    avatar: "GS",
-    description: "Real estate investor & finance creator breaking down market trends, investing, and wealth building.",
-    link: "https://youtube.com/@grahamstephan",
-  },
-  {
-    id: "c8",
-    name: "Lex Fridman",
-    channel: "@lexfridman",
-    category: "Modern Work",
-    audience: "4.1M",
-    avatar: "LF",
-    description: "Deep conversations on AI, engineering, science, business, philosophy, and human potential.",
-    link: "https://youtube.com/@lexfridman",
-  },
-];
+// Helper ordering logic
+const featuredYoutube = ["decor-gaming", "ziya-gaming", "jackson-gaming"]
+  .map((id) => creators.find((creator) => creator.id === id))
+  .filter((c): c is Creator => Boolean(c));
 
-const rosterRow3: Creator[] = [
-  {
-    id: "c9",
-    name: "Justine Ezarik",
-    channel: "@ijustine",
-    category: "Lifestyle & Tech",
-    audience: "7.1M",
-    avatar: "IJ",
-    description: "Pioneer tech creator showcasing Apple releases, gaming rigs, lifestyle vlogs, and creative tools.",
-    link: "https://youtube.com/@ijustine",
-  },
-  {
-    id: "c10",
-    name: "Andrei Jikh",
-    channel: "@andreijikh",
-    category: "Finance",
-    audience: "2.3M",
-    avatar: "AJ",
-    description: "Financial education, stock analysis, magic, and fintech platform breakdowns for retail investors.",
-    link: "https://youtube.com/@andreijikh",
-  },
-  {
-    id: "c11",
-    name: "Jeff Nippard",
-    channel: "@jeffnippard",
-    category: "Fitness & Wellness",
-    audience: "5.8M",
-    avatar: "JN",
-    description: "Science-based natural bodybuilding, nutrition breakdowns, workout programming, and health tech.",
-    link: "https://youtube.com/@jeffnippard",
-  },
-  {
-    id: "c12",
-    name: "Linus Tech Tips",
-    channel: "@linustechtips",
-    category: "Consumer Tech",
-    audience: "15.9M",
-    avatar: "LT",
-    description: "Hardware benchmarking, custom servers, home automation, and technological engineering.",
-    link: "https://youtube.com/@linustechtips",
-  },
-];
+const featuredInstagram = ["fireeyes-instagram", "nonstopgaming-325-instagram", "priyank-patel-instagram"]
+  .map((id) => creators.find((creator) => creator.id === id))
+  .filter((c): c is Creator => Boolean(c));
+
+const featuredLeaders = featuredYoutube.flatMap((creator, index) =>
+  [creator, featuredInstagram[index]].filter((c): c is Creator => Boolean(c))
+);
+
+const featuredIds = new Set(featuredLeaders.map((creator) => creator.id));
+const remainingCreators = creators.filter((creator) => !featuredIds.has(creator.id));
+
+const audienceValue = (creator: Creator) => {
+  const match = String(creator.followers ?? creator.subscribers ?? "0").match(/^([\d.]+)\s*([KM])?$/i);
+  if (!match) return 0;
+  const multiplier = match[2]?.toUpperCase() === "M" ? 1_000_000 : match[2]?.toUpperCase() === "K" ? 1_000 : 1;
+  return Number(match[1]) * multiplier;
+};
+
+const platformsList = ["youtube", "instagram", "kick"] as const;
+const creatorsByPlatform = Object.fromEntries(
+  platformsList.map((platform) => [
+    platform,
+    remainingCreators
+      .filter((creator) => (creator.platform ?? "youtube") === platform)
+      .sort((first, second) => audienceValue(second) - audienceValue(first)),
+  ])
+);
+
+const orderedRemaining: Creator[] = [];
+while (platformsList.some((platform) => creatorsByPlatform[platform].length > 0)) {
+  platformsList.forEach((platform) => {
+    const creator = creatorsByPlatform[platform].shift();
+    if (creator) orderedRemaining.push(creator);
+  });
+}
+
+const orderedCreators = [...featuredLeaders, ...orderedRemaining];
+const rowSize = Math.ceil(orderedCreators.length / 3);
+
+const rowRanges = {
+  one: orderedCreators.slice(0, rowSize),
+  two: orderedCreators.slice(rowSize, rowSize * 2),
+  three: orderedCreators.slice(rowSize * 2),
+};
+
+function PlatformIcon({ platform = "youtube" }: { platform?: "youtube" | "kick" | "instagram" }) {
+  if (platform === "kick") {
+    return (
+      <span className="text-emerald-400 font-bold text-xs inline-flex items-center gap-1" title="Kick">
+        <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current" aria-hidden="true">
+          <path d="M3 2h8v7h2V5h8v6h-6v2h6v9h-8v-7h-2v7H3V2Z" />
+        </svg>
+      </span>
+    );
+  }
+  if (platform === "instagram") {
+    return (
+      <span className="text-pink-500 font-bold text-xs inline-flex items-center gap-1" title="Instagram">
+        <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 stroke-current stroke-[2.2] fill-none" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="5" />
+          <circle cx="12" cy="12" r="4" />
+          <circle cx="17.6" cy="6.7" r="1.2" fill="currentColor" />
+        </svg>
+      </span>
+    );
+  }
+  return (
+    <span className="text-red-500 font-bold text-xs inline-flex items-center gap-1" title="YouTube">
+      <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current" aria-hidden="true">
+        <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.2 3.6-6.2 3.6Z" />
+      </svg>
+    </span>
+  );
+}
+
+function CreatorAvatar({ creator }: { creator: Creator }) {
+  const [imgError, setImgError] = useState(false);
+
+  return (
+    <div
+      className="roster-avatar relative overflow-hidden shrink-0 shadow-md"
+      style={{ background: creator.tone }}
+    >
+      {!imgError && creator.avatar ? (
+        <img
+          src={creator.avatar}
+          alt={creator.name}
+          className="w-full h-full object-cover rounded-full"
+          onError={() => setImgError(true)}
+          loading="lazy"
+        />
+      ) : (
+        <span className="text-xs font-bold text-white tracking-wider">{creator.initials}</span>
+      )}
+    </div>
+  );
+}
 
 export function CollabindHome() {
   const [modalTab, setModalTab] = useState<"brand" | "creator" | null>(null);
@@ -348,60 +545,93 @@ export function CollabindHome() {
             {/* Row 1 */}
             <div className="roster-row roster-row-one" role="group" aria-label="Creator channels, first row">
               <div className="roster-track">
-                {[...rosterRow1, ...rosterRow1].map((creator, i) => (
-                  <div
-                    key={`r1-${creator.id}-${i}`}
-                    onClick={() => setSelectedCreator(creator)}
-                    className="roster-card"
-                  >
-                    <div className="roster-avatar">{creator.avatar}</div>
-                    <div className="roster-card-info">
-                      <h3>{creator.name}</h3>
-                      <p>{creator.channel}</p>
-                      <span className="roster-card-badge">{creator.audience}</span>
-                    </div>
-                  </div>
-                ))}
+                {[...rowRanges.one, ...rowRanges.one].map((creator, i) => {
+                  const audience = creator.followers ?? creator.subscribers;
+                  const audienceLabel = audience
+                    ? `${audience} ${creator.followers ? "FOLLOWERS" : "SUBSCRIBERS"}`
+                    : creator.category || "Gaming";
+
+                  return (
+                    <button
+                      key={`r1-${creator.id}-${i}`}
+                      type="button"
+                      onClick={() => setSelectedCreator(creator)}
+                      className="roster-card"
+                    >
+                      <CreatorAvatar creator={creator} />
+                      <div className="roster-card-info text-left">
+                        <div className="flex items-center gap-1.5">
+                          <PlatformIcon platform={creator.platform} />
+                          <h3 className="truncate font-bold">{creator.name}</h3>
+                        </div>
+                        <p className="text-xs text-subtext truncate">{creator.handle}</p>
+                        <span className="roster-card-badge">{audienceLabel}</span>
+                      </div>
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
             {/* Row 2 */}
             <div className="roster-row roster-row-two" role="group" aria-label="Creator channels, second row">
               <div className="roster-track">
-                {[...rosterRow2, ...rosterRow2].map((creator, i) => (
-                  <div
-                    key={`r2-${creator.id}-${i}`}
-                    onClick={() => setSelectedCreator(creator)}
-                    className="roster-card"
-                  >
-                    <div className="roster-avatar">{creator.avatar}</div>
-                    <div className="roster-card-info">
-                      <h3>{creator.name}</h3>
-                      <p>{creator.channel}</p>
-                      <span className="roster-card-badge">{creator.audience}</span>
-                    </div>
-                  </div>
-                ))}
+                {[...rowRanges.two, ...rowRanges.two].map((creator, i) => {
+                  const audience = creator.followers ?? creator.subscribers;
+                  const audienceLabel = audience
+                    ? `${audience} ${creator.followers ? "FOLLOWERS" : "SUBSCRIBERS"}`
+                    : creator.category || "Gaming";
+
+                  return (
+                    <button
+                      key={`r2-${creator.id}-${i}`}
+                      type="button"
+                      onClick={() => setSelectedCreator(creator)}
+                      className="roster-card"
+                    >
+                      <CreatorAvatar creator={creator} />
+                      <div className="roster-card-info text-left">
+                        <div className="flex items-center gap-1.5">
+                          <PlatformIcon platform={creator.platform} />
+                          <h3 className="truncate font-bold">{creator.name}</h3>
+                        </div>
+                        <p className="text-xs text-subtext truncate">{creator.handle}</p>
+                        <span className="roster-card-badge">{audienceLabel}</span>
+                      </div>
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
             {/* Row 3 */}
             <div className="roster-row roster-row-three" role="group" aria-label="Creator channels, third row">
               <div className="roster-track">
-                {[...rosterRow3, ...rosterRow3].map((creator, i) => (
-                  <div
-                    key={`r3-${creator.id}-${i}`}
-                    onClick={() => setSelectedCreator(creator)}
-                    className="roster-card"
-                  >
-                    <div className="roster-avatar">{creator.avatar}</div>
-                    <div className="roster-card-info">
-                      <h3>{creator.name}</h3>
-                      <p>{creator.channel}</p>
-                      <span className="roster-card-badge">{creator.audience}</span>
-                    </div>
-                  </div>
-                ))}
+                {[...rowRanges.three, ...rowRanges.three].map((creator, i) => {
+                  const audience = creator.followers ?? creator.subscribers;
+                  const audienceLabel = audience
+                    ? `${audience} ${creator.followers ? "FOLLOWERS" : "SUBSCRIBERS"}`
+                    : creator.category || "Gaming";
+
+                  return (
+                    <button
+                      key={`r3-${creator.id}-${i}`}
+                      type="button"
+                      onClick={() => setSelectedCreator(creator)}
+                      className="roster-card"
+                    >
+                      <CreatorAvatar creator={creator} />
+                      <div className="roster-card-info text-left">
+                        <div className="flex items-center gap-1.5">
+                          <PlatformIcon platform={creator.platform} />
+                          <h3 className="truncate font-bold">{creator.name}</h3>
+                        </div>
+                        <p className="text-xs text-subtext truncate">{creator.handle}</p>
+                        <span className="roster-card-badge">{audienceLabel}</span>
+                      </div>
+                    </button>
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -425,35 +655,40 @@ export function CollabindHome() {
               </button>
               <p className="roster-kicker">CREATOR PROFILE</p>
               <div className="roster-drawer-person">
-                <div className="roster-avatar roster-drawer-avatar">{selectedCreator.avatar}</div>
+                <CreatorAvatar creator={selectedCreator} />
                 <div>
                   <h2>{selectedCreator.name}</h2>
-                  <p className="roster-drawer-channel">{selectedCreator.channel}</p>
+                  <p className="roster-drawer-channel font-semibold">
+                    {selectedCreator.platform?.toUpperCase() ?? "YOUTUBE"} · {selectedCreator.handle}
+                  </p>
                 </div>
               </div>
-              <p className="roster-drawer-description">{selectedCreator.description}</p>
+              <p className="roster-drawer-description font-medium">
+                Publicly visible {selectedCreator.followers ? "follower" : "subscriber"} count:{" "}
+                <strong className="text-purple">{selectedCreator.followers ?? selectedCreator.subscribers}</strong>.
+              </p>
               <dl className="roster-stats">
                 <div>
-                  <dt>Audience</dt>
-                  <dd>{selectedCreator.audience}</dd>
+                  <dt>{selectedCreator.followers ? "Followers" : "Subscribers"}</dt>
+                  <dd>{selectedCreator.followers ?? selectedCreator.subscribers}</dd>
                 </div>
                 <div>
-                  <dt>Platform</dt>
+                  <dt>Platform link</dt>
                   <dd>
                     <a
-                      href={selectedCreator.link}
+                      href={selectedCreator.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="underline hover:text-purple"
+                      className="underline hover:text-purple truncate block max-w-[140px]"
                     >
-                      {selectedCreator.channel}
+                      {selectedCreator.handle}
                     </a>
                   </dd>
                 </div>
               </dl>
               <a
                 className="roster-book"
-                href={`mailto:partnerships@collabind.com?subject=Collab%20Booking%20Inquiry%3A%20${encodeURIComponent(selectedCreator.name)}`}
+                href={`mailto:partnerships@collabind.com?subject=${encodeURIComponent(`Instant collab with ${selectedCreator.name}`)}`}
               >
                 Instant Collab / Book <span aria-hidden="true">↗</span>
               </a>
@@ -545,83 +780,32 @@ export function CollabindHome() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-              <article className="reveal glow rise-hover glass-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 group hover:-translate-y-1.5 transition-transform">
-                <div className="tile w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-gradient-to-br from-purple to-bordo flex items-center justify-center text-xl sm:text-2xl mb-4 sm:mb-6 shadow-lg shadow-purple/30">
-                  🎮
-                </div>
-                <h3 className="text-lg sm:text-xl font-bold text-bordo font-display mb-2 sm:mb-3">Gaming</h3>
-                <p className="text-xs sm:text-sm text-subtext leading-relaxed mb-4 sm:mb-6">
-                  Live stream overlays, gameplay callouts, system integrations, and hardware showcases.
-                </p>
-                <span className="inline-flex px-3 py-1 rounded-full bg-purple/10 text-purple text-[10px] sm:text-[11px] font-bold tracking-wide">
-                  ⚡ SaaS, Apps &amp; Gear
-                </span>
-              </article>
-
-              <article className="reveal glow rise-hover glass-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 group hover:-translate-y-1.5 transition-transform">
-                <div className="tile w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-gradient-to-br from-purple to-bordo flex items-center justify-center text-xl sm:text-2xl mb-4 sm:mb-6 shadow-lg shadow-purple/30">
-                  ✨
-                </div>
-                <h3 className="text-lg sm:text-xl font-bold text-bordo font-display mb-2 sm:mb-3">Lifestyle</h3>
-                <p className="text-xs sm:text-sm text-subtext leading-relaxed mb-4 sm:mb-6">
-                  Styling guides, daily vlogs, unboxings, and routine placements for DTC &amp; fashion.
-                </p>
-                <span className="inline-flex px-3 py-1 rounded-full bg-purple/10 text-purple text-[10px] sm:text-[11px] font-bold tracking-wide">
-                  ⚡ DTC, Fashion &amp; Beauty
-                </span>
-              </article>
-
-              <article className="reveal glow rise-hover glass-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 group hover:-translate-y-1.5 transition-transform">
-                <div className="tile w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-gradient-to-br from-purple to-bordo flex items-center justify-center text-xl sm:text-2xl mb-4 sm:mb-6 shadow-lg shadow-purple/30">
-                  📱
-                </div>
-                <h3 className="text-lg sm:text-xl font-bold text-bordo font-display mb-2 sm:mb-3">Consumer Tech</h3>
-                <p className="text-xs sm:text-sm text-subtext leading-relaxed mb-4 sm:mb-6">
-                  Product reviews, workflow walkthroughs, and setup tutorials for apps and SaaS.
-                </p>
-                <span className="inline-flex px-3 py-1 rounded-full bg-purple/10 text-purple text-[10px] sm:text-[11px] font-bold tracking-wide">
-                  ⚡ Apps, SaaS &amp; Hardware
-                </span>
-              </article>
-
-              <article className="reveal glow rise-hover glass-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 group hover:-translate-y-1.5 transition-transform">
-                <div className="tile w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-gradient-to-br from-purple to-bordo flex items-center justify-center text-xl sm:text-2xl mb-4 sm:mb-6 shadow-lg shadow-purple/30">
-                  📈
-                </div>
-                <h3 className="text-lg sm:text-xl font-bold text-bordo font-display mb-2 sm:mb-3">Finance &amp; Business</h3>
-                <p className="text-xs sm:text-sm text-subtext leading-relaxed mb-4 sm:mb-6">
-                  Case studies, founder breakdowns, and carousels that build high-ticket trust.
-                </p>
-                <span className="inline-flex px-3 py-1 rounded-full bg-purple/10 text-purple text-[10px] sm:text-[11px] font-bold tracking-wide">
-                  ⚡ Fintech, B2B &amp; Courses
-                </span>
-              </article>
-
-              <article className="reveal glow rise-hover glass-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 group hover:-translate-y-1.5 transition-transform">
-                <div className="tile w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-gradient-to-br from-purple to-bordo flex items-center justify-center text-xl sm:text-2xl mb-4 sm:mb-6 shadow-lg shadow-purple/30">
-                  💪
-                </div>
-                <h3 className="text-lg sm:text-xl font-bold text-bordo font-display mb-2 sm:mb-3">Fitness &amp; Wellness</h3>
-                <p className="text-xs sm:text-sm text-subtext leading-relaxed mb-4 sm:mb-6">
-                  Transformation journeys and authentic testimonials that build lasting habit.
-                </p>
-                <span className="inline-flex px-3 py-1 rounded-full bg-purple/10 text-purple text-[10px] sm:text-[11px] font-bold tracking-wide">
-                  ⚡ Nutrition &amp; Subscriptions
-                </span>
-              </article>
-
-              <article className="reveal glow rise-hover glass-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 group hover:-translate-y-1.5 transition-transform">
-                <div className="tile w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-gradient-to-br from-purple to-bordo flex items-center justify-center text-xl sm:text-2xl mb-4 sm:mb-6 shadow-lg shadow-purple/30">
-                  🧠
-                </div>
-                <h3 className="text-lg sm:text-xl font-bold text-bordo font-display mb-2 sm:mb-3">Modern Work</h3>
-                <p className="text-xs sm:text-sm text-subtext leading-relaxed mb-4 sm:mb-6">
-                  Productivity workflows, thought leadership, and newsletter authority.
-                </p>
-                <span className="inline-flex px-3 py-1 rounded-full bg-purple/10 text-purple text-[10px] sm:text-[11px] font-bold tracking-wide">
-                  ⚡ B2B &amp; Newsletters
-                </span>
-              </article>
+              {siteConfig.rosterMatrix.sectors.map((sector) => (
+                <article
+                  key={sector.title}
+                  className="reveal glow rise-hover glass-card rounded-2xl sm:rounded-3xl overflow-hidden group hover:-translate-y-1.5 transition-transform"
+                >
+                  <div className="relative h-40 sm:h-44 overflow-hidden">
+                    <img
+                      src={sector.image}
+                      alt={sector.title}
+                      loading="lazy"
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
+                    <div className="tile absolute left-5 sm:left-6 -bottom-0 translate-y-1/2 w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-gradient-to-br from-purple to-bordo flex items-center justify-center text-xl sm:text-2xl shadow-lg shadow-purple/30">
+                      {sector.icon}
+                    </div>
+                  </div>
+                  <div className="p-6 sm:p-8 pt-10 sm:pt-11">
+                    <h3 className="text-lg sm:text-xl font-bold text-bordo font-display mb-2 sm:mb-3">{sector.title}</h3>
+                    <p className="text-xs sm:text-sm text-subtext leading-relaxed mb-4 sm:mb-6">{sector.description}</p>
+                    <span className="inline-flex px-3 py-1 rounded-full bg-purple/10 text-purple text-[10px] sm:text-[11px] font-bold tracking-wide">
+                      ⚡ {sector.tags}
+                    </span>
+                  </div>
+                </article>
+              ))}
             </div>
           </div>
         </section>

@@ -46,6 +46,43 @@ body {
 }
 
 
+/* Atmosphere & Animated Text */
+
+.atmosphere {
+    background-color: var(--canvas);
+    background-image: radial-gradient(ellipse 80% 50% at 20% 10%, rgba(0, 240, 255, 0.08), transparent 55%), radial-gradient(ellipse 60% 40% at 85% 20%, rgba(204, 255, 0, 0.08), transparent 50%), radial-gradient(ellipse 50% 60% at 50% 100%, rgba(0, 240, 255, 0.05), transparent 45%);
+}
+
+.animated-text {
+    display: block;
+}
+
+.animated-text__mask {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: bottom;
+}
+
+.animated-text__unit {
+    display: inline-block;
+    will-change: transform, opacity, filter;
+}
+
+.btn-primary,
+a.btn-primary,
+button.btn-primary {
+    background-color: #CCFF00 !important;
+    color: #090D10 !important;
+}
+
+.btn-primary:hover,
+a.btn-primary:hover,
+button.btn-primary:hover {
+    background-color: #ddff33 !important;
+    color: #090D10 !important;
+}
+
+
 /* Glass & Glow effects */
 
 .glass {

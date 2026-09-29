@@ -142,13 +142,17 @@ export const siteConfig = {
       {
         icon: "🎮",
         title: "Gaming",
+        image:
+          "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80",
         description:
           "Live stream overlays, gameplay callouts, system integrations, and hardware showcases.",
-        tags: "DTC, Fashion & Beauty",
+        tags: "SaaS, Apps & Gear",
       },
       {
         icon: "✨",
         title: "Lifestyle",
+        image:
+          "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=800&q=80",
         description:
           "Styling guides, daily vlogs, unboxings, and routine placements for DTC & fashion.",
         tags: "DTC, Fashion & Beauty",
@@ -156,6 +160,8 @@ export const siteConfig = {
       {
         icon: "📱",
         title: "Consumer Tech",
+        image:
+          "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80",
         description:
           "Product reviews, workflow walkthroughs, and setup tutorials for apps and SaaS.",
         tags: "Apps, SaaS & Hardware",
@@ -163,6 +169,8 @@ export const siteConfig = {
       {
         icon: "📈",
         title: "Finance & Business",
+        image:
+          "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
         description:
           "Case studies, founder breakdowns, and carousels that build high-ticket trust.",
         tags: "Fintech, B2B & Courses",
@@ -170,6 +178,8 @@ export const siteConfig = {
       {
         icon: "💪",
         title: "Fitness & Wellness",
+        image:
+          "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=800&q=80",
         description:
           "Transformation journeys and authentic testimonials that build lasting habit.",
         tags: "Nutrition & Subscriptions",
@@ -177,6 +187,8 @@ export const siteConfig = {
       {
         icon: "🧠",
         title: "Modern Work",
+        image:
+          "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=800&q=80",
         description:
           "Productivity workflows, thought leadership, and newsletter authority.",
         tags: "B2B & Newsletters",
