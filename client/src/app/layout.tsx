@@ -1,22 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Syne, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/config/siteConfig";
-import { SkipLink } from "@/components/SkipLink";
-import { Header } from "@/components/Header";
-import { SmoothScroll } from "@/components/motion/SmoothScroll";
-
-const syne = Syne({
-  subsets: ["latin"],
-  variable: "--font-syne",
-  display: "swap",
-});
-
-const dmSans = DM_Sans({
-  subsets: ["latin"],
-  variable: "--font-dm-sans",
-  display: "swap",
-});
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -42,7 +26,6 @@ export const metadata: Metadata = {
   ],
   icons: {
     icon: [
-      { url: "/favicon.svg", type: "image/svg+xml" },
       { url: "/favicon.png", type: "image/png" },
     ],
   },
@@ -69,12 +52,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${syne.variable} ${dmSans.variable}`}>
+    <html lang="en" className="scroll-smooth">
       <body className="min-h-screen bg-canvas text-ink antialiased">
-        <SkipLink />
-        <SmoothScroll />
-        <Header />
-        <main id="main">{children}</main>
+        {children}
       </body>
     </html>
   );

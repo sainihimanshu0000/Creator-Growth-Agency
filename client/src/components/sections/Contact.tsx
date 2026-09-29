@@ -3,7 +3,6 @@
 import { FormEvent, cloneElement, useMemo, useState, type ReactElement } from "react";
 import { siteConfig } from "@/config/siteConfig";
 import { Button } from "@/components/ui/Button";
-import { Container } from "@/components/ui/Container";
 import { AnimatedText } from "@/components/cinematic/AnimatedText";
 import { ScrollReveal } from "@/components/cinematic/ScrollReveal";
 import { TechnicalGrid } from "@/components/cinematic/TechnicalGrid";

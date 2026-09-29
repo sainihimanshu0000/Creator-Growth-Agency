@@ -1,156 +1,192 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { siteConfig } from "@/config/siteConfig";
-import { Button } from "@/components/ui/Button";
-import { BrandLogo } from "@/components/ui/BrandLogo";
-import { gsap, registerGsap, usePrefersReducedMotion } from "@/lib/motion";
+import Image from "next/image";
 
-// ✅ Single source of truth — siteConfig se aata hai
-const primaryNav = siteConfig.nav;
+interface HeaderProps {
+  onOpenModal?: (tab: "brand" | "creator") => void;
+}
 
-export function Header() {
-  const [open, setOpen] = useState(false);
+export function Header({ onOpenModal }: HeaderProps) {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const menuButtonRef = useRef<HTMLButtonElement>(null);
-  const headerRef = useRef<HTMLElement>(null);
-  const reduced = usePrefersReducedMotion();
 
   useEffect(() => {
-    registerGsap();
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 30);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
     return () => {
       document.body.style.overflow = "";
     };
-  }, [open]);
-
-  useEffect(() => {
-    if (!open) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setOpen(false);
-        menuButtonRef.current?.focus();
-      }
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [open]);
-
-  useEffect(() => {
-    if (reduced || !headerRef.current) return;
-    gsap.fromTo(
-      headerRef.current,
-      { y: -24, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.9, delay: 0.2, ease: "power3.out" }
-    );
-  }, [reduced]);
+  }, [mobileMenuOpen]);
 
   return (
-    <>
-      <header
-        ref={headerRef}
-        className="fixed inset-x-0 top-0 z-50 px-3 pt-[calc(env(safe-area-inset-top)+0.65rem)] transition-all duration-500"
-      >
-        <div
-          className={`mx-auto flex h-16 max-w-6xl items-center justify-between rounded-md border px-4 shadow-[0_8px_40px_rgba(0,0,0,0.25)] backdrop-blur-xl transition-colors sm:px-6 ${
-            scrolled || open
-              ? "border-white/15 bg-canvas/90"
-              : "border-white/10 bg-canvas/70"
+    <header className="fixed top-0 inset-x-0 z-50 px-2.5 sm:px-6">
+      <div className="max-w-6xl mx-auto mt-2 sm:mt-4">
+        <nav
+          id="nav"
+          className={`glass rounded-xl sm:rounded-2xl px-3.5 sm:px-6 h-14 sm:h-16 flex items-center justify-between shadow-ink/5 transition-all duration-300 ${
+            scrolled ? "bg-card/90 shadow-lg border-clay/60" : "bg-card/75"
           }`}
         >
-          <Link
-            href="/#home"
-            className="inline-flex min-h-11 items-center"
-            onClick={() => setOpen(false)}
-            aria-label={siteConfig.company.name}
-          >
-            <BrandLogo variant="wordmark" priority className="h-7 sm:h-8" />
+          <Link href="#top" className="inline-flex items-center shrink-0" aria-label="Collabind home">
+            <Image
+              src="/brand/logo-wordmark-on-dark.png"
+              alt="Collabind"
+              width={150}
+              height={40}
+              className="h-7 sm:h-9 w-auto rounded-lg object-contain"
+              priority
+            />
           </Link>
 
-          <nav className="hidden items-center gap-6 lg:flex" aria-label="Primary">
-            {primaryNav.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="text-xs font-medium text-ink-muted transition-colors hover:text-accent"
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-
-          <div className="hidden lg:block">
-            <Button href="/#contact" size="sm">
-              {siteConfig.ctas.primary}
-            </Button>
+          <div className="hidden lg:flex items-center gap-1">
+            <Link
+              href="#roster"
+              className="nav-link px-4 py-2 rounded-xl text-sm font-medium text-subtext hover:text-purple hover:bg-purple/5 transition"
+            >
+              Creators
+            </Link>
+            <Link
+              href="#bridge"
+              className="nav-link px-4 py-2 rounded-xl text-sm font-medium text-subtext hover:text-purple hover:bg-purple/5 transition"
+            >
+              The Bridge
+            </Link>
+            <Link
+              href="#niches"
+              className="nav-link px-4 py-2 rounded-xl text-sm font-medium text-subtext hover:text-purple hover:bg-purple/5 transition"
+            >
+              Creator Niches
+            </Link>
+            <Link
+              href="#playbooks"
+              className="nav-link px-4 py-2 rounded-xl text-sm font-medium text-subtext hover:text-purple hover:bg-purple/5 transition"
+            >
+              Playbooks
+            </Link>
           </div>
 
-          <button
-            ref={menuButtonRef}
-            type="button"
-            className="inline-flex h-11 w-11 items-center justify-center text-ink lg:hidden"
-            aria-expanded={open}
-            aria-controls="mobile-nav"
-            aria-label={open ? "Close menu" : "Open menu"}
-            onClick={() => setOpen((v) => !v)}
-          >
-            <span className="flex flex-col gap-1.5">
-              <span
-                className={`block h-px w-5 bg-current transition ${
-                  open ? "translate-y-[3.5px] rotate-45" : ""
-                }`}
-              />
-              <span
-                className={`block h-px w-5 bg-current transition ${
-                  open ? "opacity-0" : ""
-                }`}
-              />
-              <span
-                className={`block h-px w-5 bg-current transition ${
-                  open ? "-translate-y-[3.5px] -rotate-45" : ""
-                }`}
-              />
-            </span>
-          </button>
-        </div>
-      </header>
+          <div className="flex items-center gap-2 sm:gap-3">
+            <button
+              type="button"
+              onClick={() => (onOpenModal ? onOpenModal("creator") : null)}
+              className="hidden sm:inline-block text-xs sm:text-sm font-semibold text-subtext hover:text-purple transition px-2.5 py-2 cursor-pointer"
+            >
+              Get Paid Collabs
+            </button>
 
-      {open ? (
-        <div
-          id="mobile-nav"
-          className="fixed inset-0 z-40 flex flex-col bg-canvas pt-[calc(5rem+env(safe-area-inset-top))] lg:hidden"
-        >
-          <div className="flex min-h-full flex-col gap-1 overflow-y-auto px-5 py-4 pb-[max(1.5rem,env(safe-area-inset-bottom))] sm:px-8">
-            {primaryNav.map((item) => (
+            <button
+              type="button"
+              onClick={() => (onOpenModal ? onOpenModal("brand") : null)}
+              className="btn magnetic glow-orange inline-flex bg-orange text-[#090D10] text-xs sm:text-sm font-semibold px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-lg sm:rounded-xl cursor-pointer"
+            >
+              <span className="sp">Promote My Brand</span>
+            </button>
+
+            <button
+              id="menuBtn"
+              aria-label="Menu"
+              aria-expanded={mobileMenuOpen}
+              onClick={() => setMobileMenuOpen((prev) => !prev)}
+              className="lg:hidden p-1.5 sm:p-2 rounded-lg text-ink hover:bg-ink/5 transition cursor-pointer"
+            >
+              <svg
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+              >
+                {mobileMenuOpen ? (
+                  <path d="M18 6L6 18M6 6l12 12" />
+                ) : (
+                  <path d="M3 6h18M3 12h18M3 18h18" />
+                )}
+              </svg>
+            </button>
+          </div>
+        </nav>
+      </div>
+
+      <div className="max-w-6xl mx-auto lg:hidden">
+        {mobileMenuOpen && (
+          <>
+            <div
+              className="fixed inset-0 top-[4.5rem] bg-canvas/80 backdrop-blur-md z-40"
+              onClick={() => setMobileMenuOpen(false)}
+            />
+            <div
+              id="mobileMenu"
+              className="relative z-50 glass rounded-xl mt-2 p-3 shadow-2xl border border-clay/60 space-y-1.5 animate-fadeIn"
+            >
               <Link
-                key={item.href}
-                href={item.href}
-                className="py-3.5 text-base font-medium text-ink hover:text-accent"
-                onClick={() => setOpen(false)}
+                href="#roster"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block px-4 py-3 rounded-xl font-medium text-subtext hover:text-purple hover:bg-purple/5 transition text-sm"
               >
-                {item.label}
+                Creators
               </Link>
-            ))}
-            <div className="pt-3">
-              <Button
-                href="/#contact"
-                className="w-full"
-                onClick={() => setOpen(false)}
+              <Link
+                href="#bridge"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block px-4 py-3 rounded-xl font-medium text-subtext hover:text-purple hover:bg-purple/5 transition text-sm"
               >
-                {siteConfig.ctas.primary}
-              </Button>
+                The Bridge
+              </Link>
+              <Link
+                href="#niches"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block px-4 py-3 rounded-xl font-medium text-subtext hover:text-purple hover:bg-purple/5 transition text-sm"
+              >
+                Creator Niches
+              </Link>
+              <Link
+                href="#playbooks"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block px-4 py-3 rounded-xl font-medium text-subtext hover:text-purple hover:bg-purple/5 transition text-sm"
+              >
+                Playbooks
+              </Link>
+              <div className="pt-2 border-t border-clay/40 flex flex-col gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    if (onOpenModal) onOpenModal("creator");
+                  }}
+                  className="w-full text-center px-4 py-2.5 rounded-xl font-semibold text-ink bg-clay/40 hover:bg-clay/60 transition text-xs"
+                >
+                  Get Paid Collabs
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    if (onOpenModal) onOpenModal("brand");
+                  }}
+                  className="w-full text-center px-4 py-2.5 rounded-xl font-bold text-[#090D10] bg-orange hover:bg-orange/90 transition text-xs"
+                >
+                  Promote My Brand →
+                </button>
+              </div>
             </div>
-          </div>
-        </div>
-      ) : null}
-    </>
+          </>
+        )}
+      </div>
+    </header>
   );
 }
