@@ -37,9 +37,9 @@ export const siteConfig = {
   },
 
   contact: {
-    brandEmail: "partnerships@collabind.com",
-    creatorEmail: "partnerships@collabind.com",
-    generalEmail: "partnerships@collabind.com",
+    brandEmail: "support@collabind.com",
+    creatorEmail: "support@collabind.com",
+    generalEmail: "support@collabind.com",
     responseSla: "We respond within 24 hours.",
     formEndpoint: "/api/contact",
   },

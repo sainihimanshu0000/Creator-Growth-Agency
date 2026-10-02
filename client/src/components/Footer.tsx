@@ -26,10 +26,10 @@ export function Footer({ onOpenModal }: FooterProps) {
               The Ultimate Creator-Brand Bridge. We cut out the DM spam, loose contracts, and late invoices so you can build.
             </p>
             <a
-              href="mailto:partnerships@collabind.com"
+              href="mailto:support@collabind.com"
               className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-purple hover:text-purple transition"
             >
-              partnerships@collabind.com <span aria-hidden="true">→</span>
+              support@collabind.com <span aria-hidden="true">→</span>
             </a>
           </div>
           <div>
@@ -79,7 +79,7 @@ export function Footer({ onOpenModal }: FooterProps) {
                 </Link>
               </li>
               <li>
-                <a href="mailto:partnerships@collabind.com" className="hover:text-purple transition">
+                <a href="mailto:support@collabind.com" className="hover:text-purple transition">
                   Contact Support
                 </a>
               </li>

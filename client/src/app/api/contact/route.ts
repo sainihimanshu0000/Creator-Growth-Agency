@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createInquiry } from "@/lib/inquiries";
+import { notifyNewInquiry } from "@/lib/notify";
 import type { InquiryPayload } from "@/lib/types";
 
 function isEmail(value: string) {
@@ -89,6 +90,7 @@ export async function POST(request: Request) {
     }
 
     const inquiry = await createInquiry(result.data);
+    await notifyNewInquiry(inquiry);
     return NextResponse.json({ ok: true, id: inquiry.id }, { status: 201 });
   } catch {
     return NextResponse.json({ error: "Unable to save inquiry." }, { status: 500 });

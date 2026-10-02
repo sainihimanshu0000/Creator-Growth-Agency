@@ -460,7 +460,7 @@ export function CollabindHome() {
               </button>
               <button
                 type="button"
-                onClick={() => { setFormSubmitted(false); setFormError(null); setModalTab("creator"); }}
+                onClick={() => document.getElementById("contact-hub")?.scrollIntoView({ behavior: "smooth", block: "start" })}
                 className="btn magnetic w-full sm:w-auto glass-card px-7 py-3.5 sm:px-9 sm:py-4 rounded-xl sm:rounded-2xl text-ink font-semibold text-sm sm:text-base hover:bg-purple/5 rise-hover cursor-pointer transition hover:scale-105"
               >
                 <span className="sp">Bring Me Collabs</span>
@@ -688,7 +688,7 @@ export function CollabindHome() {
               </dl>
               <a
                 className="roster-book"
-                href={`mailto:partnerships@collabind.com?subject=${encodeURIComponent(`Instant collab with ${selectedCreator.name}`)}`}
+                href={`mailto:support@collabind.com?subject=${encodeURIComponent(`Instant collab with ${selectedCreator.name}`)}`}
               >
                 Instant Collab / Book <span aria-hidden="true">↗</span>
               </a>
@@ -1210,8 +1210,8 @@ export function CollabindHome() {
                   <button className="contact-submit" type="submit" disabled={formSubmitting}>
                     {formSubmitting ? "Sending inquiry..." : "Send inquiry →"}
                   </button>
-                  <a className="contact-support" href="mailto:partnerships@collabind.com">
-                    Or email partnerships@collabind.com
+                  <a className="contact-support" href="mailto:support@collabind.com">
+                    Or email support@collabind.com
                   </a>
                 </div>
               </form>
