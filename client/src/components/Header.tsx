@@ -42,17 +42,17 @@ export function Header({ onOpenModal }: HeaderProps) {
       <div className="max-w-6xl mx-auto mt-2 sm:mt-4">
         <nav
           id="nav"
-          className={`glass rounded-xl sm:rounded-2xl px-3.5 sm:px-6 h-14 sm:h-16 flex items-center justify-between shadow-ink/5 transition-all duration-300 ${
+          className={`glass rounded-xl sm:rounded-2xl px-3.5 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-2 shadow-ink/5 transition-all duration-300 ${
             scrolled ? "bg-card/90 shadow-lg border-clay/60" : "bg-card/75"
           }`}
         >
-          <Link href="#top" className="inline-flex items-center shrink-0" aria-label="Collabind home">
+          <Link href="#top" className="inline-flex items-center min-w-0 shrink" aria-label="Collabind home">
             <Image
               src="/brand/logo-wordmark-on-dark.png"
               alt="Collabind"
               width={407}
               height={68}
-              className="h-7 sm:h-9 w-auto rounded-lg object-contain"
+              className="h-5 min-[400px]:h-6 sm:h-9 w-auto max-w-full object-contain"
               priority
             />
           </Link>
@@ -84,7 +84,7 @@ export function Header({ onOpenModal }: HeaderProps) {
             </Link>
           </div>
 
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
             <button
               type="button"
               onClick={() => (onOpenModal ? onOpenModal("creator") : null)}
@@ -96,7 +96,7 @@ export function Header({ onOpenModal }: HeaderProps) {
             <button
               type="button"
               onClick={scrollToContactHub}
-              className="btn magnetic glow-orange inline-flex bg-orange text-[#090D10] text-xs sm:text-sm font-semibold px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-lg sm:rounded-xl cursor-pointer"
+              className="btn magnetic glow-orange hidden min-[360px]:inline-flex whitespace-nowrap bg-orange text-[#090D10] text-[11px] min-[400px]:text-xs sm:text-sm font-semibold px-3 sm:px-5 py-2 sm:py-2.5 rounded-lg sm:rounded-xl cursor-pointer"
             >
               <span className="sp">Promote My Brand</span>
             </button>

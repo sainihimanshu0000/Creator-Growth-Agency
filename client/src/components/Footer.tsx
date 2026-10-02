@@ -19,7 +19,7 @@ export function Footer({ onOpenModal }: FooterProps) {
                 alt="Collabind"
                 width={407}
                 height={68}
-                className="h-10 w-auto sm:h-11 rounded-lg object-contain"
+                className="h-10 w-auto sm:h-11 object-contain"
               />
             </Link>
             <p className="mt-5 text-sm text-subtext max-w-sm leading-relaxed">
