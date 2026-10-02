@@ -451,7 +451,7 @@ export function CollabindHome() {
             <div className="reveal mt-8 sm:mt-11 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full max-w-sm sm:max-w-none mx-auto">
               <button
                 type="button"
-                onClick={() => { setFormSubmitted(false); setFormError(null); setModalTab("brand"); }}
+                onClick={() => document.getElementById("contact-hub")?.scrollIntoView({ behavior: "smooth", block: "start" })}
                 className="btn magnetic glow-orange w-full sm:w-auto bg-orange px-7 py-3.5 sm:px-9 sm:py-4 rounded-xl sm:rounded-2xl text-[#090D10] font-bold text-sm sm:text-base cursor-pointer transition hover:scale-105"
               >
                 <span className="sp flex items-center justify-center gap-2">

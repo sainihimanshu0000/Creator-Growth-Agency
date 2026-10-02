@@ -50,8 +50,8 @@ export function Header({ onOpenModal }: HeaderProps) {
             <Image
               src="/brand/logo-wordmark-on-dark.png"
               alt="Collabind"
-              width={1622}
-              height={263}
+              width={407}
+              height={68}
               className="h-7 sm:h-9 w-auto rounded-lg object-contain"
               priority
             />

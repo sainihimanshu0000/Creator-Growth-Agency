@@ -17,8 +17,8 @@ export function Footer({ onOpenModal }: FooterProps) {
               <Image
                 src="/brand/logo-wordmark-on-dark.png"
                 alt="Collabind"
-                width={1622}
-                height={263}
+                width={407}
+                height={68}
                 className="h-10 w-auto sm:h-11 rounded-lg object-contain"
               />
             </Link>
