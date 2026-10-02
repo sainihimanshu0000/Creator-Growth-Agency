@@ -12,6 +12,12 @@ export function Header({ onOpenModal }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
+  const scrollToContactHub = () => {
+    const target = document.getElementById("contact-hub");
+    if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+    else window.location.href = "/#contact-hub";
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 30);
@@ -44,8 +50,8 @@ export function Header({ onOpenModal }: HeaderProps) {
             <Image
               src="/brand/logo-wordmark-on-dark.png"
               alt="Collabind"
-              width={150}
-              height={40}
+              width={1622}
+              height={263}
               className="h-7 sm:h-9 w-auto rounded-lg object-contain"
               priority
             />
@@ -89,7 +95,7 @@ export function Header({ onOpenModal }: HeaderProps) {
 
             <button
               type="button"
-              onClick={() => (onOpenModal ? onOpenModal("brand") : null)}
+              onClick={scrollToContactHub}
               className="btn magnetic glow-orange inline-flex bg-orange text-[#090D10] text-xs sm:text-sm font-semibold px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-lg sm:rounded-xl cursor-pointer"
             >
               <span className="sp">Promote My Brand</span>
@@ -176,7 +182,7 @@ export function Header({ onOpenModal }: HeaderProps) {
                   type="button"
                   onClick={() => {
                     setMobileMenuOpen(false);
-                    if (onOpenModal) onOpenModal("brand");
+                    scrollToContactHub();
                   }}
                   className="w-full text-center px-4 py-2.5 rounded-xl font-bold text-[#090D10] bg-orange hover:bg-orange/90 transition text-xs"
                 >
